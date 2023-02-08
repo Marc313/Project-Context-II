@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 3384052}
   - component: {fileID: 3384051}
   - component: {fileID: 3384050}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,11 +486,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   jumpHeight: 2
-  groundedOffset: 0.01
-  gravity: -100
+  groundedOffset: 0.3
+  gravity: -50
+  isInteracting: 0
   jumpLayers:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 64
 --- !u!4 &407798408
 Transform:
   m_ObjectHideFlags: 0
@@ -1362,7 +1363,7 @@ MonoBehaviour:
   offsetPlayer: {x: 0, y: 1, z: 0}
   sensitivity: 200
   angleBoundaryY: 90
-  player: {fileID: 407798408}
+  target: {fileID: 407798408}
 --- !u!1 &2100041400
 GameObject:
   m_ObjectHideFlags: 0

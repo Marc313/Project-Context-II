@@ -48,6 +48,7 @@ public class DialogueController : MonoBehaviour
         sentences = dialogueSet;
 
         inConversation = true;
+        FindObjectOfType<PlayerController>().isInteracting = true;
 
         showDialogueCanvas();
         nextSentence();
@@ -55,7 +56,6 @@ public class DialogueController : MonoBehaviour
 
     void nextSentence()
     {
-        Debug.Log("BlockIndex: " + blockIndex);
         dialogueText.text = "";
         StopAllCoroutines();
 
@@ -75,6 +75,7 @@ public class DialogueController : MonoBehaviour
         inConversation = false;
         hideDialogueCanvas();
         OnConversationEnd?.Invoke();
+        FindObjectOfType<PlayerController>().isInteracting = false;
     }
 
     IEnumerator showText()

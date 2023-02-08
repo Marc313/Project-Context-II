@@ -25,11 +25,11 @@ public class DialogueTrigger : MonoBehaviour
         dialogueController.startDialogue(CompleteDialogue, OnConversationEnd);
     }
 
-/*    // Check if the player walked into this trigger
+/*    // Check if the target walked into this trigger
     private void OnTriggerEnter(Collider other)
     {
-        PlayerStats player = FindObjectOfType<PlayerStats>();
-        if (player != null)
+        PlayerStats target = FindObjectOfType<PlayerStats>();
+        if (target != null)
         {
             TriggerDialogue();
         }

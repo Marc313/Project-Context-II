@@ -10,8 +10,9 @@ public class CameraRotation : MonoBehaviour
     public float angleBoundaryY = 90f;
 
     [Header("References")]
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform target;
 
+    private PlayerController playerController;
     private Transform camera;
     private float xRotation = 0f;
 
@@ -21,25 +22,30 @@ public class CameraRotation : MonoBehaviour
 
         camera = transform;
         transform.localPosition = offsetPlayer;
-        transform.rotation = player.rotation;
+        transform.rotation = target.rotation;
     }
 
     void Update()
     {
-        mouseXInput();
-        mouseYInput();
+        FindPlayerController();
+
+        if (playerController == null || !playerController.isInteracting)
+        {
+            MouseXInput();
+            MouseYInput();
+        }
     }
 
-    // Rotates the player when the mouse is moved in the x-direction
-    void mouseXInput()
+    // Rotates the target when the mouse is moved in the x-direction
+    private void MouseXInput()
     {
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
 
-        player.Rotate(Vector3.up * mouseX);
+        target.Rotate(Vector3.up * mouseX);
     }
 
     // Rotates the camera when the mouse is moved in the y-direction
-    void mouseYInput()
+    private void MouseYInput()
     {
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
@@ -47,5 +53,14 @@ public class CameraRotation : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -angleBoundaryY, angleBoundaryY);
 
         camera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+    }
+
+    private void FindPlayerController()
+    {
+        if (playerController == null)
+        {
+            // Try to find the PlayerController script. This will only work if the target is a player
+            playerController = target.GetComponent<PlayerController>();
+        }
     }
 }
