@@ -2,17 +2,23 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Movement")]
     public float moveSpeed = 10;
     public float jumpHeight = 2;
     public float groundedOffset = 0.2f;
     public float gravity = -9.81f;
-
-    public bool isInteracting;
-
     [SerializeField] private LayerMask jumpLayers;
+
+    [Header("Interacting")]
+    public float interactRange;
+
+    [HideInInspector] public bool isInteracting;
+
+
     private CharacterController controller;
     private float yVelocity;
     private bool isGrounded;
+    private IInteractable closestInteractable;
 
     private void Awake()
     {
@@ -24,14 +30,57 @@ public class PlayerController : MonoBehaviour
     {
         if (!isInteracting)
         {
-            checkGrounded();
-            movementInput();
-            jumpInput();
+            CheckGrounded();
+            MovementInput();
+            JumpInput();
+
+            CheckInteractables();
+            InteractInput();
         }
     }
 
+    private void InteractInput()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            closestInteractable?.OnInteract();
+        }
+
+        
+    }
+
+    private void CheckInteractables()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, interactRange);
+
+        closestInteractable = null;
+        float closestDistance = float.MaxValue;
+        foreach (Collider collider in colliders)
+        {
+            if (collider.gameObject != this.gameObject)
+            {
+                IInteractable interactable = collider.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    float distance = Vector3.Distance(transform.position, collider.transform.position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestInteractable = interactable;
+                    }
+                }
+            }
+        }
+
+
+        /*        closestInteractable = colliders.OrderBy(collider => Vector3.Distance(transform.position, collider.transform.position))
+                                                                .Select(collider => collider.GetComponent<IInteractable>())
+                                                                .Where(collider => collider != null)
+                                                                .First();*/
+    }
+
     // Handles the target movement
-    void movementInput()
+    private void MovementInput()
     {
         float xInput = Input.GetAxisRaw("Horizontal");
         float zInput = Input.GetAxisRaw("Vertical");
@@ -52,7 +101,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Handles the jump input of the target
-    void jumpInput()
+    private void JumpInput()
     {
         if (isGrounded && Input.GetKey(KeyCode.Space))
         {
@@ -61,12 +110,18 @@ public class PlayerController : MonoBehaviour
     }
 
     // Calculates if the target is grounded
-    void checkGrounded()
+    private void CheckGrounded()
     {
         float playerHeight = GetComponent<Collider>().bounds.size.y;    // Height of the target is equal to the height of its collider
         float playerBottomY = transform.position.y - playerHeight / 2;
         Vector3 playerBottom = new Vector3(transform.position.x, playerBottomY, transform.position.z);
 
         isGrounded = Physics.CheckSphere(playerBottom, groundedOffset, jumpLayers);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, interactRange);
     }
 }

@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
+using System.Threading.Tasks;
 
 // Imported from an older project that used Brackeys' tutorial for this script
 public class DialogueController : MonoBehaviour
@@ -18,7 +18,7 @@ public class DialogueController : MonoBehaviour
 
     [Header("Letter Animation")]
     public float dialogueSpeed = 0.05f;
-    public float animationDelay = .2f; // Forgot what this did
+    //public float animationDelay = .2f; // Forgot what this did
 
     private DialogueEntry[] sentences;
     private UnityEvent OnConversationEnd;
@@ -34,9 +34,9 @@ public class DialogueController : MonoBehaviour
     void Update()
     {
         if (inConversation
-            && (Input.GetKeyDown(KeyCode.Space)
+            && (Input.GetKeyDown(KeyCode.E)
             || Input.GetKeyDown(KeyCode.Mouse0)
-            || Input.GetKeyDown(KeyCode.KeypadEnter)))
+            || Input.GetKeyDown(KeyCode.Return)))
         {
             nextSentence();
         }
@@ -44,6 +44,7 @@ public class DialogueController : MonoBehaviour
 
     public void startDialogue(DialogueEntry[] dialogueSet, UnityEvent OnConversationEnd = null)
     {
+        Debug.Log("Dialogue");
         this.OnConversationEnd = OnConversationEnd;
         sentences = dialogueSet;
 
@@ -70,11 +71,14 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    void endConversation()
+    async void endConversation()
     {
         inConversation = false;
+        blockIndex = 0;
         hideDialogueCanvas();
         OnConversationEnd?.Invoke();
+
+        await Task.Delay(1);
         FindObjectOfType<PlayerController>().isInteracting = false;
     }
 
