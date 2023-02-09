@@ -45,7 +45,7 @@ public class QuestionManager : MonoBehaviour
         if (questionIndex == questions.Count) { EndQuestionRound(); return; }
 
         currentQuestion = questions[questionIndex];
-        uiManager.ChangeQuestionText(currentQuestion.questionText);
+        uiManager.ChangeQuestionText("Question: " + currentQuestion.questionText);
         questionIndex++;
     }
 

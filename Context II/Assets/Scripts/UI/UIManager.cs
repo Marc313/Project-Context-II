@@ -14,6 +14,10 @@ public class UIManager : MonoBehaviour
     public GameObject QuesitionUI;
     public TMP_Text QuestionText;
 
+    [Header("Designing")]
+    public TMP_Text ProgressCounter;
+
+
     private void Awake()
     {
         ServiceLocator.RegisterService(this);
@@ -23,7 +27,7 @@ public class UIManager : MonoBehaviour
     {
         // Hide All UI?
 
-        ShowQuestionCanvas();
+        //ShowQuestionCanvas();
     }
 
     public void ShowQuestionCanvas()
@@ -35,6 +39,4 @@ public class UIManager : MonoBehaviour
     {
         QuestionText.text = _question;
     }
-
-
 }
