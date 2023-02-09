@@ -7,13 +7,6 @@ using System.Threading.Tasks;
 // Imported from an older project that used Brackeys' tutorial for this script
 public class DialogueController : MonoBehaviour
 {
-    // UI Elements //
-    [Header("UI Elements")]
-    public Canvas dialogueCanvas;
-    public TMP_Text dialogueName;
-    public TMP_Text dialogueText;
-
-
     //public Image dialogueBox;
 
     [Header("Letter Animation")]
@@ -26,9 +19,17 @@ public class DialogueController : MonoBehaviour
     private int blockIndex;
     private bool inConversation;
 
+    private PlayerController player;
+    private UIManager uiManager;
+
     private void Awake()
     {
         ServiceLocator.RegisterService(this);
+    }
+
+    private void Start()
+    {
+        uiManager = ServiceLocator.GetService<UIManager>();
     }
 
     void Update()
@@ -49,15 +50,16 @@ public class DialogueController : MonoBehaviour
         sentences = dialogueSet;
 
         inConversation = true;
-        FindObjectOfType<PlayerController>().isInteracting = true;
+        FindPlayerController();
+        if (player != null) player.isInteracting = true;
 
         showDialogueCanvas();
         nextSentence();
     }
 
-    void nextSentence()
+    private void nextSentence()
     {
-        dialogueText.text = "";
+        uiManager.dialogueText.text = "";
         StopAllCoroutines();
 
         if (blockIndex < sentences.Length)
@@ -71,7 +73,7 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    async void endConversation()
+    private async void endConversation()
     {
         inConversation = false;
         blockIndex = 0;
@@ -79,30 +81,37 @@ public class DialogueController : MonoBehaviour
         OnConversationEnd?.Invoke();
 
         await Task.Delay(1);
-        FindObjectOfType<PlayerController>().isInteracting = false;
+        FindPlayerController();
+        if (player != null) player.isInteracting = false;
     }
 
     IEnumerator showText()
     {
         DialogueEntry currentDialogue = sentences[blockIndex - 1];
 
-        dialogueName.text = currentDialogue.name;
+        uiManager.dialogueName.text = currentDialogue.name;
         foreach (char character in currentDialogue.textBlock)
         {
-            dialogueText.text += character;
+            uiManager.dialogueText.text += character;
             yield return new WaitForSeconds(dialogueSpeed);
         }
     }
 
-    void showDialogueCanvas()
+    private void showDialogueCanvas()
     {
-        dialogueCanvas.gameObject.SetActive(true);
+        uiManager.dialogueCanvas.gameObject.SetActive(true);
     }
 
-    void hideDialogueCanvas()
+    private void hideDialogueCanvas()
     {
-        dialogueCanvas.gameObject.SetActive(false);
-        dialogueName.text = string.Empty;   // string.Empty is ""
-        dialogueText.text = string.Empty;
+        uiManager.dialogueCanvas.gameObject.SetActive(false);
+        uiManager.dialogueName.text = string.Empty;   // string.Empty is ""
+        uiManager.dialogueText.text = string.Empty;
+    }
+
+    private void FindPlayerController()
+    {
+        if (player == null)
+        player = FindObjectOfType<PlayerController>();
     }
 }
