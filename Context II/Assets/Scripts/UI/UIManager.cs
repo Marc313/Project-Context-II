@@ -26,8 +26,6 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         // Hide All UI?
-
-        //ShowQuestionCanvas();
     }
 
     public void ShowQuestionCanvas()

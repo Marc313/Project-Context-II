@@ -19,17 +19,17 @@ public class QuestionManager : MonoBehaviour
     private void Start()
     {
         uiManager = ServiceLocator.GetService<UIManager>();
+        uiManager.ShowQuestionCanvas();
         StartQuestionRound();
-
     }
-/*
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
+    /*
+        private void Update()
         {
-            StartQuestionRound();
-        }
-    }*/
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                StartQuestionRound();
+            }
+        }*/
 
     public void StartQuestionRound()
     {

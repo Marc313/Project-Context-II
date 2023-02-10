@@ -19,7 +19,7 @@ public class DialogueController : MonoBehaviour
     private int blockIndex;
     private bool inConversation;
 
-    private PlayerController player;
+    private PlayerMovement player;
     private UIManager uiManager;
 
     private void Awake()
@@ -112,6 +112,6 @@ public class DialogueController : MonoBehaviour
     private void FindPlayerController()
     {
         if (player == null)
-        player = FindObjectOfType<PlayerController>();
+        player = FindObjectOfType<PlayerMovement>();
     }
 }

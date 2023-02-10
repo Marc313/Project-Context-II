@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public bool isInteracting;
 
-
     private CharacterController controller;
     private float yVelocity;
     private bool isGrounded;
@@ -35,18 +34,7 @@ public class PlayerController : MonoBehaviour
             JumpInput();
 
             CheckInteractables();
-            InteractInput();
         }
-    }
-
-    private void InteractInput()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            closestInteractable?.OnInteract();
-        }
-
-        
     }
 
     private void CheckInteractables()
