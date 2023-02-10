@@ -45,6 +45,7 @@ public class DialogueController : MonoBehaviour
 
     public void startDialogue(DialogueEntry[] dialogueSet, UnityEvent OnConversationEnd = null)
     {
+        uiManager.QuesitionUI.SetActive(false);
         Debug.Log("Dialogue");
         this.OnConversationEnd = OnConversationEnd;
         sentences = dialogueSet;
@@ -92,6 +93,8 @@ public class DialogueController : MonoBehaviour
         uiManager.dialogueName.text = currentDialogue.name;
         foreach (char character in currentDialogue.textBlock)
         {
+            uiManager.QuesitionUI.SetActive(false);
+
             uiManager.dialogueText.text += character;
             yield return new WaitForSeconds(dialogueSpeed);
         }
