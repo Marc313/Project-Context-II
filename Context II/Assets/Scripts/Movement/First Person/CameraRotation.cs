@@ -16,7 +16,7 @@ public class CameraRotation : MonoBehaviour
     private Transform camera;
     private float xRotation = 0f;
 
-    void Start()
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;   // Locks the cursor in the center of the screen
 
@@ -25,7 +25,7 @@ public class CameraRotation : MonoBehaviour
         transform.rotation = target.rotation;
     }
 
-    void Update()
+    private void Update()
     {
         FindPlayerController();
 
