@@ -1,4 +1,5 @@
 using UnityEngine;
+using oldDialogue;
 
 public class ResidentNPC : NPC
 {
