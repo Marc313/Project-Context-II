@@ -1,3 +1,4 @@
+using newDialogue;
 using System.Linq;
 using UnityEngine;
 
@@ -8,29 +9,16 @@ public class sDialogueChoiceNode : ADialogueNode
     public DialogueLine choiceLine;
     public Choice[] choices = new Choice[3];
 
-    public bool isLineShown = false;
-    public bool isChoiceClicked = false;
+    private bool isLineShown = false;
 
-    public override DialogueLine Next()
+    public override void Play(DialogueManager _dm)
     {
-        if (!isLineShown)
-        {
-            isLineShown = true;
-            return choiceLine;
-        }
-
-        return null;
-    }
-
-    public override bool HasNext()
-    {
-        return !isChoiceClicked;
+        _dm.DisplayChoice(this);
     }
 
     public override void Reset()
     {
         isLineShown= false;
-        isChoiceClicked= false;
 
         sDialogueSequenceNode[] sequences = choices.Select(c => c.response).Where(c => c!= null).ToArray();
         Debug.Log(sequences.ToString());
@@ -39,4 +27,5 @@ public class sDialogueChoiceNode : ADialogueNode
             sequence.Reset();
         }
     }
+
 }

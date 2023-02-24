@@ -1,3 +1,4 @@
+using newDialogue;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Dialogues/Sequence Node")]
@@ -9,16 +10,21 @@ public class sDialogueSequenceNode : ADialogueNode
 
     public int lineIndex { get; private set; }
 
-    public override DialogueLine Next()
+    public DialogueLine Next()
     {
         DialogueLine currentLine = dialogueLines[lineIndex];
         lineIndex++;
         return currentLine;
     }
 
-    public override bool HasNext()
+    public bool HasNext()
     {
         return lineIndex < dialogueLines.Length;
+    }
+    
+    public override void Play(DialogueManager _dm)
+    {
+        _dm.StartSequence(this);
     }
 
     /// <summary>

@@ -1,38 +1,22 @@
 using newDialogue;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(menuName = "Dialogues/Dialogue")]
 public class sDialogue : ScriptableObject
 {
     public List<ADialogueNode> dialogueNodes;
 
-    private int NodeIndex;
+    [HideInInspector] public int NodeIndex;
     private ADialogueNode currentNode;
 
     [HideInInspector] public bool isDone = false;
 
-    public void Play()
+    public void Play(UnityEvent _onConversationEnd = null)
     {
         Reset();
-        NextNode();
-    }
-
-    public void NextNode()
-    {
-        if (HasNext())
-        {
-            currentNode = dialogueNodes[NodeIndex];
-
-            if (currentNode is sDialogueSequenceNode) { FindObjectOfType<DialogueManager>().StartSequence(currentNode as sDialogueSequenceNode, NextNode) ; }
-            else if (currentNode is sDialogueChoiceNode) { FindObjectOfType<DialogueManager>().DisplayChoice(currentNode as sDialogueChoiceNode, NextNode); }
-
-            NodeIndex++;
-        }
-        else
-        {
-            // End
-        }
+        FindObjectOfType<DialogueManager>().StartDialogue(this, _onConversationEnd);
     }
 
     public bool HasNext()

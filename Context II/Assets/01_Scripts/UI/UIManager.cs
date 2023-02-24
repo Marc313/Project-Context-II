@@ -1,8 +1,6 @@
 using JetBrains.Annotations;
 using newDialogue;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,9 +16,7 @@ public class UIManager : MonoBehaviour
     public GameObject dialogueSequenceUI;
     public GameObject dialogueChoiceUI;
     [Space]
-    public Button choiceButton1;
-    public Button choiceButton2;
-    public Button choiceButton3;
+    public Button[] choiceButtons;
 
     [Header("Question System")]
     public GameObject QuesitionUI;
@@ -42,10 +38,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         dialogueManager = ServiceLocator.GetService<DialogueManager>();
-        // Hide All UI?
-
-        dialogueName = dialogueSequenceName;
-        dialogueText = dialogueSequenceText;
+        SwitchToSequence();
     }
 
     public void ShowQuestionCanvas()
@@ -76,16 +69,30 @@ public class UIManager : MonoBehaviour
         dialogueText = dialogueChoiceText;
     }
 
-    public void ConnectButtons(Choice _choice1, Choice _choice2, Choice _choice3, System.Action _onSubsequenceEnd)
+    // Leave to UI Manager
+    public void ShowDialogueCanvas()
     {
-        // Button Text
-        choiceButton1.GetComponentInChildren<TMP_Text>().text = _choice1.optionName;
-        choiceButton2.GetComponentInChildren<TMP_Text>().text = _choice2.optionName;
-        choiceButton3.GetComponentInChildren<TMP_Text>().text = _choice3.optionName;
+        dialogueCanvas.gameObject.SetActive(true);
+    }
 
-        // Button OnClick Events
-        choiceButton1.onClick.AddListener(() => dialogueManager.StartSequence(_choice1.response, _onSubsequenceEnd));
-        choiceButton2.onClick.AddListener(() => dialogueManager.StartSequence(_choice2.response, _onSubsequenceEnd));
-        choiceButton3.onClick.AddListener(() => dialogueManager.StartSequence(_choice3.response, _onSubsequenceEnd));
+    // Leave to UI Manager
+    public void HideDialogueCanvas()
+    {
+        dialogueCanvas.gameObject.SetActive(false);
+        dialogueSequenceName.text = string.Empty;
+        dialogueSequenceText.text = string.Empty;
+    }
+
+    public void ConnectButtons(Choice[] choices, System.Action _onSubsequenceEnd)
+    {
+        for (int i = 0; i < choiceButtons.Length; i++)
+        {
+            Button button = choiceButtons[i];
+            Choice choice = choices[i];
+            TMP_Text optionText = button.GetComponentInChildren<TMP_Text>();
+
+            if (optionText != null) optionText.text = choice.optionName;
+            button.onClick.AddListener(() => dialogueManager.StartSequence(choice.response, _onSubsequenceEnd));
+        }
     }
 }

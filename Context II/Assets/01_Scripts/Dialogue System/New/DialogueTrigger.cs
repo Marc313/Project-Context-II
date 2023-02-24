@@ -5,8 +5,8 @@ namespace newDialogue
 {
     public class DialogueTrigger : MonoBehaviour
     {
-        public sDialogue CompleteDialogue;
-        public UnityEvent OnConversationEnd;
+        public sDialogue completeDialogue;
+        public UnityEvent onConversationEnd;
 
         public bool playOnStart;
 
@@ -19,13 +19,7 @@ namespace newDialogue
 
         public void TriggerDialogue()
         {
-            CompleteDialogue.Play();
-            /*if (dialogueManager == null)
-            {
-                dialogueManager = ServiceLocator.GetService<DialogueManager>();
-            }
-
-            dialogueManager.StartSequence(CompleteDialogue.dialogueNodes[0] as sDialogueSequenceNode, OnConversationEnd);*/
+            completeDialogue.Play(onConversationEnd);
         }
     }
 }
