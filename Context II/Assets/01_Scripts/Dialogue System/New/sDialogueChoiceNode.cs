@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Dialogues/Choice Node")]
 public class sDialogueChoiceNode : ADialogueNode
 {
+    public string speaker;
     public DialogueLine choiceLine;
     public Choice[] choices = new Choice[3];
 
@@ -15,10 +16,6 @@ public class sDialogueChoiceNode : ADialogueNode
         if (!isLineShown)
         {
             isLineShown = true;
-            var ui = FindObjectOfType<UIManager>();
-            ui.SwitchToChoice();
-            ui.ConnectButtons(choices[0], choices[1], choices[2]);
-
             return choiceLine;
         }
 

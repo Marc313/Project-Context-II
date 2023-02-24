@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// One piece of a dialogue
+// One piece of a sequence
 
 [System.Serializable]
 public class DialogueLine

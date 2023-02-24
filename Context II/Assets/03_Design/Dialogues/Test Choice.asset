@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f21e03d7153c7d42846177b4016768b, type: 3}
   m_Name: Test Choice
   m_EditorClassIdentifier: 
+  speaker: Harry
   choiceLine:
     textBlock: Wat vind je ervan?
   choices:
@@ -21,3 +22,5 @@ MonoBehaviour:
     response: {fileID: 11400000, guid: 73e535b4899aab042a2515759219e687, type: 2}
   - optionName: Weet ik niet
     response: {fileID: 0}
+  isLineShown: 0
+  isChoiceClicked: 0

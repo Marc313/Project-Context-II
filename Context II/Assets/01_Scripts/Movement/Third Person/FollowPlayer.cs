@@ -14,7 +14,7 @@ public class FollowPlayer : MonoBehaviour
 
     public Quaternion targetLookRotation { get; private set; }
 
-    // Start is called before the first frame update
+    // Play is called before the first frame update
     void Awake()
     {
         Player = FindObjectOfType<PlayerMovement>().transform;

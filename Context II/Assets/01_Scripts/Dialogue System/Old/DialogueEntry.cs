@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace oldDialogue
 {
-    // One piece of a dialogue
+    // One piece of a sequence
     [System.Serializable]
     public class DialogueEntry
     {

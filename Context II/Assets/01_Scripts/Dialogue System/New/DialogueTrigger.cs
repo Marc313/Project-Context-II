@@ -14,18 +14,18 @@ namespace newDialogue
 
         private void Start()
         {
-            CompleteDialogue.Reset();
             if (playOnStart) { TriggerDialogue(); }
         }
 
         public void TriggerDialogue()
         {
-            if (dialogueManager == null)
+            CompleteDialogue.Play();
+            /*if (dialogueManager == null)
             {
                 dialogueManager = ServiceLocator.GetService<DialogueManager>();
             }
 
-            dialogueManager.startDialogue(CompleteDialogue, OnConversationEnd);
+            dialogueManager.StartSequence(CompleteDialogue.dialogueNodes[0] as sDialogueSequenceNode, OnConversationEnd);*/
         }
     }
 }

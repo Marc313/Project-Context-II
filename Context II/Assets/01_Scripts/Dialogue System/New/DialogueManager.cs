@@ -1,6 +1,8 @@
 using oldDialogue;
+using System;
 using System.Collections;
 using System.Numerics;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,10 +13,11 @@ namespace newDialogue
         [Header("Letter Animation")]
         public float dialogueSpeed = 0.05f;
 
-        private sDialogue dialogue;
-        private UnityEvent onConversationEnd;
+        private sDialogueSequenceNode sequence;
+        private System.Action onConversationEnd;
 
         private bool inConversation;
+        private bool inSequence;
 
         private PlayerMovement player;
         private UIManager uiManager;
@@ -31,44 +34,48 @@ namespace newDialogue
 
         void Update()
         {
-            if (inConversation
+            if (inSequence
                 && (Input.GetKeyDown(KeyCode.E)
                 || Input.GetKeyDown(KeyCode.Mouse0)
                 || Input.GetKeyDown(KeyCode.Return)))
             {
-                nextSentence();
+                NextLine();
             }
         }
 
-        public void startDialogue(sDialogue _dialogue, UnityEvent _onConversationEnd = null)
+        public void StartSequence(sDialogueSequenceNode _dialogue, System.Action _onConversationEnd = null)
         {
-            uiManager.QuesitionUI.SetActive(false);
-            //Debug.Log("Dialogue");
+            if (_dialogue == null)
+            {
+                endSequence();
+                return;
+            };
+
             onConversationEnd = _onConversationEnd;
-            dialogue = _dialogue;
+            sequence = _dialogue;
+
+            ShowDialogueCanvas();
+            uiManager.QuesitionUI.SetActive(false); //Move
 
             inConversation = true;
+            inSequence = true;
             FindPlayerController();
             if (player != null) player.isInteracting = true;
 
-            showDialogueCanvas();
-            nextSentence();
+            uiManager.dialogueName.text = _dialogue.speaker;
+
+            NextLine();
         }
 
-        public void continueDialogue(sDialogueSequenceNode _node)
-        {
-            StartCoroutine(showText(_node.Next()));
-        }
-
-        private void nextSentence()
+        private void NextLine()
         {
             uiManager.dialogueText.text = "";
             StopAllCoroutines();
 
 /*            ADialogueNode currentNode;
-            if (dialogue.HasNext())
+            if (sequence.HasNext())
             {
-                currentNode = dialogue.Next();
+                currentNode = sequence.Next();
 
                 uiManager.dialogueName.text = "Name";
 
@@ -77,45 +84,46 @@ namespace newDialogue
 
                 if (line != null)
                 {
-                    StartCoroutine(showText(line));
+                    StartCoroutine(DisplayLine(line));
                 }
                 // Else do nothing, wait until player presses button.
             }
             else
             {
-                endConversation();
+                endSequence();
             }*/
 
-            DialogueLine nextLine = dialogue.NextDialogueLine();
-
-            if (nextLine != null)
+            if (sequence.HasNext())
             {
-                StartCoroutine(showText(nextLine));
+                DialogueLine nextLine = sequence.Next();
+
+                if (nextLine != null)   // Remove
+                {
+                    StartCoroutine(DisplayLine(nextLine));
+                }
             }
-            // Else do nothing, wait until player presses button.
-
-
-            if (dialogue.isDone)
+            else
             {
-                endConversation();
+                endSequence();
             }
         }
 
-        private void endConversation()
+        private void endSequence()
         {
             inConversation = false;
-            //blockIndex = 0;
-            hideDialogueCanvas();
-            dialogue.Reset();
+            inSequence = false;
+            HideDialogueCanvas();
+            sequence.Reset();
             onConversationEnd?.Invoke();
 
             FindPlayerController();
             if (player != null) player.isInteracting = false;
         }
 
-        IEnumerator showText(DialogueLine _line)
+        IEnumerator DisplayLine(DialogueLine _line)
         {
-            foreach (char character in _line.textBlock)
+/*            TMP_Text textBox = uiManager.dialogueText;
+*/            foreach (char character in _line.textBlock)
             {
                 uiManager.QuesitionUI.SetActive(false);
 
@@ -124,22 +132,36 @@ namespace newDialogue
             }
         }
 
-        private void showDialogueCanvas()
+        // Leave to UI Manager
+        private void ShowDialogueCanvas()
         {
+            uiManager.SwitchToSequence();
             uiManager.dialogueCanvas.gameObject.SetActive(true);
         }
 
-        private void hideDialogueCanvas()
+        // Leave to UI Manager
+        private void HideDialogueCanvas()
         {
             uiManager.dialogueCanvas.gameObject.SetActive(false);
-            uiManager.dialogueName.text = string.Empty;   // string.Empty is ""
-            uiManager.dialogueText.text = string.Empty;
+            uiManager.dialogueSequenceName.text = string.Empty;   // string.Empty is ""
+            uiManager.dialogueSequenceText.text = string.Empty;
         }
 
+        // Bad lol
         private void FindPlayerController()
         {
             if (player == null)
                 player = FindObjectOfType<PlayerMovement>();
+        }
+
+        public void DisplayChoice(sDialogueChoiceNode _choiceNode, System.Action _onSubsequenceEnd = null)
+        {
+            ShowDialogueCanvas();
+            uiManager.SwitchToChoice();
+            uiManager.dialogueName.text = _choiceNode.speaker;
+            uiManager.dialogueText.text = "";
+            StartCoroutine(DisplayLine(_choiceNode.choiceLine));
+            uiManager.ConnectButtons(_choiceNode.choices[0], _choiceNode.choices[1], _choiceNode.choices[2], _onSubsequenceEnd);
         }
     }
 }
