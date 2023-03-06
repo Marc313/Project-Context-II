@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
             JumpInput();
 
             CheckInteractables();
+            InteractInput();
         }
     }
 
@@ -65,6 +66,14 @@ public class PlayerController : MonoBehaviour
                                                                 .Select(collider => collider.GetComponent<IInteractable>())
                                                                 .Where(collider => collider != null)
                                                                 .First();*/
+    }
+
+    private void InteractInput()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            closestInteractable?.OnInteract();
+        }
     }
 
     // Handles the target movement
@@ -112,4 +121,6 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, interactRange);
     }
+
+
 }

@@ -7,22 +7,22 @@ public class ResidentNPC : NPC
     // public DialogueTrigger[] dialogues
     // private currentDialogueIndex
 
-    public DialogueTrigger firstRepeatDialogue;
+/*    public DialogueTrigger firstRepeatDialogue;
 
     public DialogueTrigger correctQuestionDialogue;
     public DialogueTrigger wrongQuestionDialogue;
 
     public Question correspondingQuestion;
 
-    private QuestionManager questionManager;
-
+    private QuestionManager questionManager;*/
+/*
     public void AskCurrentQuestion()
     {
         GetQuestionManager();
         AskQuestion(questionManager.currentQuestion);
-    }
+    }*/
 
-    private void AskQuestion(Question _question)
+/*    private void AskQuestion(Question _question)
     {
         if (_question = correspondingQuestion)
         {
@@ -34,13 +34,13 @@ public class ResidentNPC : NPC
         }
 
         currentDialogue.TriggerDialogue();
-    }
+    }*/
 
-    private void GetQuestionManager()
+/*    private void GetQuestionManager()
     {
         if (questionManager == null)
         {
             questionManager = ServiceLocator.GetService<QuestionManager>();
         }
-    }
+    }*/
 }

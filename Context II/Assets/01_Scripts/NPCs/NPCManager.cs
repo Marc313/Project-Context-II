@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ public class NPCManager : MonoBehaviour
         NPCs = FindObjectsOfType<NPC>().ToList();
     }
 
-    private void Update()
+*//*    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -20,5 +20,6 @@ public class NPCManager : MonoBehaviour
                 npc.SetCurrentDialogue(npc.correctQuestionDialogue);
             }
         }
-    }
+    }*//*
 }
+*/

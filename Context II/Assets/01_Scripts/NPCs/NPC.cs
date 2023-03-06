@@ -1,5 +1,5 @@
 using UnityEngine;
-using oldDialogue;
+using newDialogue;
 
 public class NPC : MonoBehaviour, IInteractable
 {

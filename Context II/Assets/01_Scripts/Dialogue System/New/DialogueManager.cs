@@ -22,7 +22,7 @@ namespace newDialogue
         private bool inDialogue;
         private bool inSequence;
 
-        private PlayerMovement player;
+        private PlayerController player;
         private UIManager uiManager;
 
         private void Awake()
@@ -157,7 +157,7 @@ namespace newDialogue
         private void FindPlayerController()
         {
             if (player == null)
-                player = FindObjectOfType<PlayerMovement>();
+                player = FindObjectOfType<PlayerController>();
         }
     }
 }
