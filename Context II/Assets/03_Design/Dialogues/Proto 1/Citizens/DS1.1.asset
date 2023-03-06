@@ -15,6 +15,6 @@ MonoBehaviour:
   speaker: Citizen
   dialogueLines:
   - textBlock: "The money they\u2019re willing to spend! I\u2019m a bus driver and
-      boy have I been breaking my "
-  - textBlock: "back for a pay raise yet this is more important. I\u2019ll probably
-      have to work till I\u2019m 70!"
+      boy have I been breaking my back for a pay raise yet ..."
+  - textBlock: "this is more important. I\u2019ll probably have to work till I\u2019m
+      70! "

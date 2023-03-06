@@ -1,7 +1,7 @@
-/*using UnityEngine;
+using UnityEngine;
 
-[CreateAssetMenu(menuName = "Items/Item")]
-public class sItem : ScriptableObject
+public class Item : ScriptableObject
 {
     public string name;
-}*/
+    public GameObject model;
+}

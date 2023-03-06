@@ -1,14 +1,13 @@
 // Commented out voor nu, misschien later toch gebruiken
 
-/*using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace MarcoHelpers
 {
     public enum EventName
     {
-        TILE_CLICKED = 0,
-        DAM_CHANGED = 1,
-        FUEL_EMPTY = 2
+        WEEGSCHAAL_BALANCED = 0,
+        ITEM_OBTAINED = 1,
     }
 
     public delegate void EventCallback(object _value);
@@ -46,6 +45,5 @@ namespace MarcoHelpers
             }
         }
     }
-} 
+}
 
-*/

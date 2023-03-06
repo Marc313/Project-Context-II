@@ -15,5 +15,5 @@ MonoBehaviour:
   speaker: Citizen
   dialogueLines:
   - textBlock: "Solar farms when it\u2019s always cloudy in our climate?? And what
-      are they useful for in"
-  - textBlock: "the winter?? I\u2019m fine with solar farms just not in my neighborhood. "
+      are they useful for in the winter??"
+  - textBlock: "I\u2019m fine with solar farms just not in my neighborhood. "

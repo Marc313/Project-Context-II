@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4231006147900882775}
-  - {fileID: 4231006148682937902}
+  - {fileID: 859630768399849204}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52,10 +52,10 @@ MonoBehaviour:
   jumpHeight: 2
   groundedOffset: 0.3
   gravity: -50
-  isInteracting: 0
   jumpLayers:
     serializedVersion: 2
     m_Bits: 64
+  isInteracting: 0
 --- !u!136 &4231006147304887627
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -179,7 +179,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4231006148682937902}
+  - component: {fileID: 859630768399849204}
   - component: {fileID: 4231006148682937897}
   - component: {fileID: 4231006148682937896}
   - component: {fileID: 4231006148682937903}
@@ -191,8 +191,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4231006148682937902
-Transform:
+--- !u!224 &859630768399849204
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -206,6 +206,11 @@ Transform:
   m_Father: {fileID: 4231006147304887626}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!20 &4231006148682937897
 Camera:
   m_ObjectHideFlags: 0

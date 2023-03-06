@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
     public float gravity = -9.81f;
     [SerializeField] private LayerMask jumpLayers;
 
-    [Header("Interacting")]
-    public float interactRange;
+/*    [Header("Interacting")]
+    public float interactRange;*/
 
     [HideInInspector] public bool isInteracting;
 
@@ -33,12 +33,12 @@ public class PlayerController : MonoBehaviour
             MovementInput();
             JumpInput();
 
-            CheckInteractables();
-            InteractInput();
+/*            CheckInteractables();
+            InteractInput();*/
         }
     }
 
-    private void CheckInteractables()
+/*    private void CheckInteractables()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, interactRange);
 
@@ -62,19 +62,19 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        /*        closestInteractable = colliders.OrderBy(collider => Vector3.Distance(transform.position, collider.transform.position))
+        *//*        closestInteractable = colliders.OrderBy(collider => Vector3.Distance(transform.position, collider.transform.position))
                                                                 .Select(collider => collider.GetComponent<IInteractable>())
                                                                 .Where(collider => collider != null)
-                                                                .First();*/
-    }
+                                                                .First();*//*
+    }*/
 
-    private void InteractInput()
+/*    private void InteractInput()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             closestInteractable?.OnInteract();
         }
-    }
+    }*/
 
     // Handles the target movement
     private void MovementInput()
@@ -116,11 +116,11 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics.CheckSphere(playerBottom, groundedOffset, jumpLayers);
     }
 
-    private void OnDrawGizmos()
+/*    private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, interactRange);
-    }
+    }*/
 
 
 }

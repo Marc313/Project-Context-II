@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using MarcoHelpers;
 using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
@@ -7,12 +6,28 @@ public class PlayerLogic : MonoBehaviour
     [Header("Interacting")]
     public float interactRange;
 
+    public Inventory inventory;
+
     private IInteractable closestInteractable;
+
+    private void Start()
+    {
+        inventory = new Inventory();
+    }
 
     private void Update()
     {
         CheckInteractables();
         InteractInput();
+    }
+
+    public void ObtainItem(Item _item)
+    {
+        inventory.items.Add(_item);
+        EventSystem.RaiseEvent(EventName.ITEM_OBTAINED, _item);
+
+/*        Instantiate(_item);
+        SimpleAnimations.*/
     }
 
     private void InteractInput()

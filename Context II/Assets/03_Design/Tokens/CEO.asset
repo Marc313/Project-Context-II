@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e5a070709df454d80f04e954c99972, type: 3}
+  m_Name: CEO
+  m_EditorClassIdentifier: 
+  name: CEO Token
+  model: {fileID: 879717631340988226, guid: 5abe5e191b252fc49806f7dff2d5df0d, type: 3}
+  description: 
+  color: {r: 0, g: 1, b: 0.90322113, a: 0}
+  side: 0

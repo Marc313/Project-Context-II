@@ -1395,13 +1395,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueCanvas: {fileID: 7648633118041905591}
-  dialogueName: {fileID: 7648633118268769084}
-  dialogueText: {fileID: 7648633116540537892}
+  dialogueSequenceName: {fileID: 7648633118268769084}
+  dialogueSequenceText: {fileID: 7648633116540537892}
+  dialogueChoiceName: {fileID: 224843716}
+  dialogueChoiceText: {fileID: 374134917}
   dialogueSequenceUI: {fileID: 7648633116339975710}
   dialogueChoiceUI: {fileID: 1183178802}
-  choiceButton1: {fileID: 1071550148}
-  choiceButton2: {fileID: 27324305}
-  choiceButton3: {fileID: 853851611}
+  choiceButtons:
+  - {fileID: 1071550148}
+  - {fileID: 27324305}
+  - {fileID: 853851611}
   QuesitionUI: {fileID: 4062443868888929681}
   QuestionText: {fileID: 4062443868318023569}
   ProgressCounter: {fileID: 4062443868738435882}
