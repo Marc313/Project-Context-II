@@ -1,3 +1,4 @@
+using MarcoHelpers;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -19,6 +20,28 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private IInteractable closestInteractable;
 
+    public void OnEnable()
+    {
+        EventSystem.Subscribe(EventName.MENU_OPENED, DisableSelf);
+        EventSystem.Subscribe(EventName.MENU_CLOSED, EnableSelf);
+    }
+
+    public void OnDisable()
+    {
+        EventSystem.Unsubscribe(EventName.MENU_OPENED, DisableSelf);
+        EventSystem.Unsubscribe(EventName.MENU_CLOSED, EnableSelf);
+    }
+
+    private void EnableSelf(object _value)
+    {
+        isInteracting = false;
+    }
+
+    private void DisableSelf(object _value)
+    {
+        isInteracting = true;
+    }
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -32,49 +55,8 @@ public class PlayerController : MonoBehaviour
             CheckGrounded();
             MovementInput();
             JumpInput();
-
-/*            CheckInteractables();
-            InteractInput();*/
         }
     }
-
-/*    private void CheckInteractables()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, interactRange);
-
-        closestInteractable = null;
-        float closestDistance = float.MaxValue;
-        foreach (Collider collider in colliders)
-        {
-            if (collider.gameObject != this.gameObject)
-            {
-                IInteractable interactable = collider.GetComponent<IInteractable>();
-                if (interactable != null)
-                {
-                    float distance = Vector3.Distance(transform.position, collider.transform.position);
-                    if (distance < closestDistance)
-                    {
-                        closestDistance = distance;
-                        closestInteractable = interactable;
-                    }
-                }
-            }
-        }
-
-
-        *//*        closestInteractable = colliders.OrderBy(collider => Vector3.Distance(transform.position, collider.transform.position))
-                                                                .Select(collider => collider.GetComponent<IInteractable>())
-                                                                .Where(collider => collider != null)
-                                                                .First();*//*
-    }*/
-
-/*    private void InteractInput()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            closestInteractable?.OnInteract();
-        }
-    }*/
 
     // Handles the target movement
     private void MovementInput()
@@ -115,12 +97,4 @@ public class PlayerController : MonoBehaviour
 
         isGrounded = Physics.CheckSphere(playerBottom, groundedOffset, jumpLayers);
     }
-
-/*    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, interactRange);
-    }*/
-
-
 }

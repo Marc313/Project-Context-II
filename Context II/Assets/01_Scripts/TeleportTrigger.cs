@@ -8,15 +8,17 @@ public class TeleportTrigger : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        Debug.Log("Interact");
         // Eventueel check of in trigger is
         TeleportToHouse();
     }
 
     public void TeleportToHouse()
     {
+        Debug.Log("Interact");
         PlayerController player = FindObjectOfType<PlayerController>();
+        player.enabled = false;
         player.transform.position = teleportPos.position;
+        player.enabled = true;
         player.transform.rotation = teleportPos.rotation;
     }
 }

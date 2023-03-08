@@ -14,6 +14,12 @@ public static class Helpers
         float newValue = Mathf.Lerp(min2, max2, normalizedValue);
         return newValue;
     }
+
+    public static bool NearlyEquals(this float _f1, float _f2, float _delta)
+    {
+        return Mathf.Abs(_f1 - _f2) <= _delta;
+    }
+
     #endregion
 
     /// <summary>

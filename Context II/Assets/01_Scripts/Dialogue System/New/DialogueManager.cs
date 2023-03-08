@@ -1,8 +1,8 @@
-using oldDialogue;
+using MarcoHelpers;
 using System;
 using System.Collections;
-using System.Numerics;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,9 +18,10 @@ namespace newDialogue
         private UnityEvent onConversationEnd;
 
         private sDialogue dialogue;
+        private DialogueLine currentLine;
 
-        private bool inDialogue;
         private bool inSequence;
+        private bool inTextCoroutine;
 
         private PlayerController player;
         private UIManager uiManager;
@@ -38,9 +39,22 @@ namespace newDialogue
         void Update()
         {
             if (inSequence
-                && (Input.GetKeyDown(KeyCode.E)
-                || Input.GetKeyDown(KeyCode.Mouse0)
+                && (Input.GetKeyDown(KeyCode.Mouse0)
                 || Input.GetKeyDown(KeyCode.Return)))
+            {
+                OnInput();
+            }
+        }
+
+        private void OnInput()
+        {
+            if (inTextCoroutine)
+            {
+                StopCoroutine(DisplayLine(currentLine));
+                inTextCoroutine= false;
+                uiManager.dialogueText.text = currentLine.textBlock;
+            }
+            else
             {
                 NextLine();
             }
@@ -51,6 +65,7 @@ namespace newDialogue
             onConversationEnd = _onConversationEnd;
             dialogue = _dialogue;
             NextNode();
+            EventSystem.RaiseEvent(EventName.MENU_OPENED);
         }
 
         public void NextNode()
@@ -68,7 +83,7 @@ namespace newDialogue
             }
         }
 
-        public void StartSequence(sDialogueSequenceNode _sequence, System.Action _onSequenceEnd = null)
+        public void StartSequence(sDialogueSequenceNode _sequence, Action _onSequenceEnd = null)
         {
             if (_sequence == null)
             {
@@ -83,7 +98,6 @@ namespace newDialogue
             uiManager.SwitchToSequence();
             uiManager.QuesitionUI.SetActive(false); //Move
 
-            inDialogue = true;
             inSequence = true;
             FindPlayerController();
             if (player != null) player.isInteracting = true;
@@ -93,7 +107,7 @@ namespace newDialogue
             NextLine();
         }
        
-        public void DisplayChoice(sDialogueChoiceNode _choiceNode, System.Action _onSubsequenceEnd = null)
+        public void DisplayChoice(sDialogueChoiceNode _choiceNode, Action _onSubsequenceEnd = null)
         {
             uiManager.ShowDialogueCanvas();
             uiManager.SwitchToChoice();
@@ -110,11 +124,11 @@ namespace newDialogue
 
             if (sequence.HasNext())
             {
-                DialogueLine nextLine = sequence.Next();
+                currentLine = sequence.Next();
 
-                if (nextLine != null)   // Remove
+                if (currentLine != null)   // Remove
                 {
-                    StartCoroutine(DisplayLine(nextLine));
+                    StartCoroutine(DisplayLine(currentLine));
                 }
             }
             else
@@ -133,16 +147,18 @@ namespace newDialogue
         private void EndDialogue()
         {
             uiManager.HideDialogueCanvas();
-            inDialogue = false;
             sequence.Reset();
             onConversationEnd?.Invoke();
 
-            FindPlayerController();
-            if (player != null) player.isInteracting = false;
+            EventSystem.RaiseEvent(EventName.MENU_CLOSED);
+
+/*            FindPlayerController();
+            if (player != null) player.isInteracting = false;*/
         }
 
         IEnumerator DisplayLine(DialogueLine _line)
         {
+            inTextCoroutine = true;
             TMP_Text textBox = uiManager.dialogueText;
             foreach (char character in _line.textBlock)
             {
@@ -151,6 +167,7 @@ namespace newDialogue
                 textBox.text += character;
                 yield return new WaitForSeconds(dialogueSpeed);
             }
+            inTextCoroutine = false;
         }
 
         // Bad lol

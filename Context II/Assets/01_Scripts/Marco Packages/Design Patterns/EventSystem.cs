@@ -8,6 +8,9 @@ namespace MarcoHelpers
     {
         WEEGSCHAAL_BALANCED = 0,
         ITEM_OBTAINED = 1,
+        ARTICLE_CHANGE = 2,
+        MENU_OPENED = 3,
+        MENU_CLOSED = 4,
     }
 
     public delegate void EventCallback(object _value);

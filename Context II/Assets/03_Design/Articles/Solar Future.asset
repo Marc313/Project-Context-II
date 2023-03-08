@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35654aded1e21164b95131aea161d85d, type: 3}
+  m_Name: Solar Future
+  m_EditorClassIdentifier: 
+  title: Why solar farms are the future
+  content: "After my visit to the CEO\u2019s of the solar farms they\u2019re planning
+    to place in town, I learned why the solar farm is highly needed. The solar farms
+    are a one time investment! After placing the solar panels the maintenance costs
+    are very low. They can generate sustainable energy for up to 30-40 years. Solar
+    farms also combat climate change. Lastly the solar panels don\u2019t pollute
+    the air unlike burning fuels."
+  endingText: 

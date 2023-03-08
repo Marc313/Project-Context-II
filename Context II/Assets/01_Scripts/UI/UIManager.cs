@@ -1,6 +1,6 @@
-using JetBrains.Annotations;
 using MarcoHelpers;
 using newDialogue;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Cursor")]
+    public Texture2D CursorSprite;
+
     [Header("Dialogue System")]
     public Canvas dialogueCanvas;
     public TMP_Text dialogueSequenceName;
@@ -35,6 +38,12 @@ public class UIManager : MonoBehaviour
     public InventorySlot[] inventorySlots;
     public Slider balanceBar;
 
+    [Header("Articles")]
+    public GameObject ArticleMenu;
+    public TMP_Text articleTitle;
+    public TMP_Text articleContent;
+    private bool inArticleMenu;
+
     private Color citizenColor;
     private Color ceoColor;
 
@@ -55,17 +64,32 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         dialogueManager = ServiceLocator.GetService<DialogueManager>();
+        CursorSetup();
+
         SwitchToSequence();
+        FillInventorySlots();
+        ToggleScaleMenu();
+        FillInventorySlots();
+        ToggleScaleMenu();
+        FillInventorySlots();
     }
 
     private void OnEnable()
     {
+        EventSystem.Subscribe(EventName.WEEGSCHAAL_BALANCED, SwitchToArticleMenu);
         EventSystem.Subscribe(EventName.ITEM_OBTAINED, ShowItemObtainScreen);
+        EventSystem.Subscribe(EventName.ARTICLE_CHANGE, DisplayArticle);
+        EventSystem.Subscribe(EventName.MENU_OPENED, EnableCursor);
+        EventSystem.Subscribe(EventName.MENU_CLOSED, DisableCursor);
     }
 
     private void OnDisable()
     {
+        EventSystem.Unsubscribe(EventName.WEEGSCHAAL_BALANCED, SwitchToArticleMenu);
         EventSystem.Unsubscribe(EventName.ITEM_OBTAINED, ShowItemObtainScreen);
+        EventSystem.Unsubscribe(EventName.ARTICLE_CHANGE, DisplayArticle);
+        EventSystem.Unsubscribe(EventName.MENU_OPENED, EnableCursor);
+        EventSystem.Unsubscribe(EventName.MENU_CLOSED, DisableCursor);
     }
 
     private void Update()
@@ -75,10 +99,16 @@ public class UIManager : MonoBehaviour
             captureCount++;
             ScreenCapture.CaptureScreenshot("Assets/Screenshot" + captureCount + ".jpg");
         }
-        else if (Input.GetKeyDown(KeyCode.Q))
+
+        if (Input.GetKeyDown(KeyCode.Q) && !inArticleMenu)
         {
             ToggleScaleMenu();
             FillInventorySlots();
+        }
+
+        if (IsMouseOnUI())
+        {
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -137,9 +167,10 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void AddToBalanceValue(float _value)
+    public void AddToBalanceValue(float _value, Token.Side _side)
     {
-        balanceBar.value += _value;
+        int multiplier = _side == Token.Side.Citizen ? -1 : 1;
+        balanceBar.value += _value * multiplier;
     }
 
     private void ShowItemObtainScreen(object _item)
@@ -148,6 +179,7 @@ public class UIManager : MonoBehaviour
 
         ItemObtainScreen.SetActive(true);
         ItemObtainText.text = "New token obtained: " + item.name;
+
         Invoke(nameof(HideItemObtainScreen), 3f);
 
         //Debug.Log(item.name);
@@ -158,56 +190,95 @@ public class UIManager : MonoBehaviour
         ItemObtainScreen.SetActive(false);
     }
 
-    // You can now also do this during a conversation!
+    // You can now also do this during a conversation! Bad!
     private void ToggleScaleMenu()
     {
         bool isMenuActive = !ScaleMenu.activeSelf;
         ScaleMenu.SetActive(isMenuActive);
         if (isMenuActive)
         {
-            Cursor.lockState = CursorLockMode.None; 
-            Cursor.visible = true;
+            EventSystem.RaiseEvent(EventName.MENU_OPENED);
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            EventSystem.RaiseEvent(EventName.MENU_CLOSED);
         }
     }
 
     private void FillInventorySlots()
     {
         List<Item> playerItems = player.inventory.items;
-        Color transparent = new Color(0, 0, 0, 1);
+        Color transparent = new Color(0, 0, 0, 0);
 
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
-            Image image = inventorySlots[i].GetComponent<Image>();
+            Image image = slot.GetComponent<Image>();
             Image tokenImage = slot.itemIcon;
-            Token token = slot.item;
 
             if (i < playerItems.Count)
             {
+                tokenImage.gameObject.SetActive(true);
                 Token item = (Token)playerItems[i];
-                inventorySlots[i].item = item;
+                slot.item = item;
 
                 if (item != null && image != null)
                 {
-                    image.color = item.side == Token.Side.CEO ? Color.cyan : Color.green;
-                    //tokenImage.color = token.color;
+                    //image.color = item.side == Token.Side.CEO ? Color.cyan : Color.green;
+                    tokenImage.color = item.color;
                 }
                 else
                 {
                     image.color = Color.black;
-                    //tokenImage.color = transparent;
+                    tokenImage.color = transparent;
                 }
             }
-            else
-            {
-                image.color = Color.black;
-               //tokenImage.color = transparent;
-            }
         }
+    }
+
+    private void DisplayArticle(object _article)
+    {
+        sArticle article = _article as sArticle;
+        articleTitle.text = article.title;
+        articleContent.text = article.content;
+    }
+
+    private void SwitchToArticleMenu(object _value)
+    {
+        if (ArticleMenu == null) return;
+
+        inArticleMenu = true;
+        ArticleMenu.SetActive(true);
+        ScaleMenu.SetActive(false);
+        EventSystem.RaiseEvent(EventName.MENU_OPENED);
+    }
+
+    private void CursorSetup()
+    {
+
+        //set the cursor origin to its centre. (default is upper left corner)
+        Vector2 cursorOffset = new Vector2(CursorSprite.width / 2, CursorSprite.height / 2);
+
+        //Sets the cursor to the Crosshair sprite with given offset 
+        //and automatic switching to hardware default if necessary
+        Cursor.SetCursor(CursorSprite, cursorOffset, CursorMode.Auto);
+    }
+
+    private void EnableCursor(object value)
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private void DisableCursor(object _value)
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+
+    public static bool IsMouseOnUI()
+    {
+        return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
     }
 }

@@ -5,20 +5,44 @@ public class PlayerLogic : MonoBehaviour
 {
     [Header("Interacting")]
     public float interactRange;
-
     public Inventory inventory;
 
     private IInteractable closestInteractable;
+    private bool isEnabled = true;
 
-    private void Start()
+    public void OnEnable()
     {
-        inventory = new Inventory();
+        EventSystem.Subscribe(EventName.MENU_OPENED, DisableSelf);
+        EventSystem.Subscribe(EventName.MENU_CLOSED, EnableSelf);
+    }
+
+    public void OnDisable()
+    {
+        EventSystem.Unsubscribe(EventName.MENU_OPENED, DisableSelf);
+        EventSystem.Unsubscribe(EventName.MENU_CLOSED, EnableSelf);
+    }
+
+    private void EnableSelf(object _value)
+    {
+        isEnabled = true;
+    }
+
+    private void DisableSelf(object _value)
+    {
+        isEnabled = false;
     }
 
     private void Update()
     {
+        if (!isEnabled) return;
+
         CheckInteractables();
         InteractInput();
+    }
+
+    private void Awake()
+    {
+        inventory = new Inventory();
     }
 
     public void ObtainItem(Item _item)

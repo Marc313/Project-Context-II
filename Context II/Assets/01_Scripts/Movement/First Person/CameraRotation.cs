@@ -18,7 +18,7 @@ public class CameraRotation : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;   // Locks the cursor in the center of the screen
+        //Cursor.lockState = CursorLockMode.Locked;   // Locks the cursor in the center of the screen
 
         camera = transform;
         transform.localPosition = offsetPlayer;
