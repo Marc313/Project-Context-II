@@ -62,7 +62,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         if (!isDropped)
         {
-            transform.position = slotPosition;
+            itemIcon.transform.position = slotPosition;
         }
         else
         {
@@ -70,11 +70,6 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
 
     }
-
-    /*    public void OnDrop(PointerEventData eventData)
-        {
-            throw new System.NotImplementedException();
-        }*/
 
     public void OnDrag(PointerEventData eventData)
     {

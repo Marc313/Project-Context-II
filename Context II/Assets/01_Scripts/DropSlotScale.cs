@@ -12,6 +12,8 @@ public class DropSlotScale : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
+        if (IsCapacityReached()) return; 
+
         InventorySlot slot = eventData.pointerDrag.GetComponent<InventorySlot>();
         slot.isDropped = true;
         slot.SetDropSlot(this);

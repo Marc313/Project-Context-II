@@ -55,6 +55,15 @@ public class PlayerController : MonoBehaviour
             CheckGrounded();
             MovementInput();
             JumpInput();
+
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                moveSpeed *= 2;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                moveSpeed /= 2;
+            }
         }
     }
 
