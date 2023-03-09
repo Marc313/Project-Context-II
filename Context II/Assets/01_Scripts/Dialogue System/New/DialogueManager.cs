@@ -50,7 +50,7 @@ namespace newDialogue
         {
             if (inTextCoroutine)
             {
-                StopCoroutine(DisplayLine(currentLine));
+                StopAllCoroutines();
                 inTextCoroutine= false;
                 uiManager.dialogueText.text = currentLine.textBlock;
             }

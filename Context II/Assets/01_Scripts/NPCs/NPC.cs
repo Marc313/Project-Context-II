@@ -3,6 +3,7 @@ using newDialogue;
 
 public class NPC : MonoBehaviour, IInteractable
 {
+    public InteractIndicator indicator;
     public DialogueTrigger firstDialogue;
     [SerializeField] private Token token;
     protected DialogueTrigger currentDialogue;

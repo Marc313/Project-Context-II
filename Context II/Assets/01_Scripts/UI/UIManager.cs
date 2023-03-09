@@ -67,11 +67,15 @@ public class UIManager : MonoBehaviour
         CursorSetup();
 
         SwitchToSequence();
-        FillInventorySlots();
+        Invoke(nameof(Test), 0.1f);
+        Invoke(nameof(Test), 0.2f);
+    }
+
+    public void Test ()
+    {
         ToggleScaleMenu();
         FillInventorySlots();
-        ToggleScaleMenu();
-        FillInventorySlots();
+
     }
 
     private void OnEnable()

@@ -90,6 +90,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (isDropped && currentDropSlot != null)
         {
             itemIcon.transform.position = slotPosition;
+            itemIcon.transform.rotation = Quaternion.identity;
             FindObjectOfType<UIManager>().AddToBalanceValue(-0.1f, currentDropSlot.side);
             turnBack.gameObject.SetActive(false);
             isDropped= false;
