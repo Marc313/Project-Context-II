@@ -31,9 +31,11 @@ public class Projectile : MonoBehaviour
        targetDirection = _direction;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision _collision)
     {
-        if (destroyOnImpact)
+        Projectile otherProjectile = _collision.gameObject.GetComponent<Projectile>();
+
+        if (destroyOnImpact && otherProjectile == null)
         {
             Destroy(gameObject);
         }

@@ -1,21 +1,16 @@
 using UnityEngine;
 
-public class ClickThrower : MonoBehaviour
+public class ClickThrower : Thrower
 {
-    public GameObject throwablePrefab;
-    public Transform startPos;
-    public bool destroyOnImpact;
-    private Projectile currentThrowable;
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            ShootProjectile();
+            Activate();
         }
     }
 
-    public void ShootProjectile()
+    public override Vector3 CalculateTargetDirection()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -31,8 +26,6 @@ public class ClickThrower : MonoBehaviour
             destination = ray.GetPoint(1000);
         }
 
-        currentThrowable = Instantiate(throwablePrefab, startPos.position, Quaternion.identity).GetComponent<Projectile>();
-        currentThrowable.SetTargetDirection((destination - startPos.position).normalized);
-        currentThrowable.destroyOnImpact = destroyOnImpact;
+        return (destination - startPos.position).normalized;
     }
 }
