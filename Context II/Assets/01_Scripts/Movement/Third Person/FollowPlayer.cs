@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class FollowPlayer : MonoBehaviour
 {
@@ -7,6 +6,8 @@ public class FollowPlayer : MonoBehaviour
     public float sensitivityX;
     public Vector3 Offset;
     public Transform EnemyLockOn;
+
+    public bool rotationEnabled = true;
 
     private float rotationY;
     private Transform Player;
@@ -28,7 +29,7 @@ public class FollowPlayer : MonoBehaviour
         if (playerMovement == null || !playerMovement.isInteracting)
         {
             MoveToPlayer();
-            RotateCameraAlongMouse();
+            if (rotationEnabled) RotateCameraAlongMouse();
         }
     }
 

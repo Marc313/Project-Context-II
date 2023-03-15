@@ -1,8 +1,14 @@
 using UnityEngine;
 
+// Third Person Player Movement
 public class PlayerMovement : Movement
 {
     public float currentMoveSpeed;
+    public bool isInteracting;
+
+    public bool verticalEnabled = true;
+    public bool horizontalEnabled = true;
+    public bool rotationEnabled = true;
 
     private Rigidbody rb;
     private FollowPlayer playerCamera;
@@ -10,7 +16,6 @@ public class PlayerMovement : Movement
     private Vector3 moveDirection;
     private Quaternion targetRotation;
 
-    public bool isInteracting;
 
     private void Awake()
     {
@@ -23,14 +28,14 @@ public class PlayerMovement : Movement
         if (!isInteracting)
         {
             HandleMoveInput();
-            UpdateTargetRotation();
+            if (rotationEnabled) UpdateTargetRotation();
         }
     }
 
     private void HandleMoveInput()
     {
-        float vertInput = Input.GetAxisRaw("Vertical");
-        float horInput = Input.GetAxisRaw("Horizontal");
+        float vertInput = verticalEnabled ? Input.GetAxisRaw("Vertical") : 0;
+        float horInput = horizontalEnabled ? Input.GetAxisRaw("Horizontal") : 0;
 
         if (vertInput != 0 || horInput != 0)
         {

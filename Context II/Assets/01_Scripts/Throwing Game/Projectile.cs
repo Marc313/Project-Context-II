@@ -31,9 +31,25 @@ public class Projectile : MonoBehaviour
        targetDirection = _direction;
     }
 
-    private void OnCollisionEnter(Collision _collision)
+    /*    private void OnCollisionEnter(Collision _collision)
+        {
+            Projectile otherProjectile = _collision.gameObject.GetComponent<Projectile>();
+
+            if (destroyOnImpact && otherProjectile == null)
+            {
+                Destroy(gameObject);
+            }
+        }*/
+
+    private void OnTriggerEnter(Collider _collision)
     {
         Projectile otherProjectile = _collision.gameObject.GetComponent<Projectile>();
+        PlayerLogic player = _collision.gameObject.GetComponentInParent<PlayerLogic>();
+
+        if (player != null)
+        {
+            Debug.Log("PLAYER HIT");
+        }
 
         if (destroyOnImpact && otherProjectile == null)
         {
