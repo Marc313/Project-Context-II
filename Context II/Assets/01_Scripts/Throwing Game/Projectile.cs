@@ -53,7 +53,12 @@ public class Projectile : MonoBehaviour
 
         if (destroyOnImpact && otherProjectile == null)
         {
-            Destroy(gameObject);
+            OnImpact(_collision.gameObject);
         }
+    }
+
+    protected virtual void OnImpact(GameObject _collisionObject)
+    {
+        Destroy(gameObject);
     }
 }

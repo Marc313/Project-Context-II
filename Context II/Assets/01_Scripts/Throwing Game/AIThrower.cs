@@ -11,6 +11,8 @@ public class AIThrower : Thrower
     [Header("Throwing Frequency")]
     [SerializeField] private float minTimerLength = 0.5f;
     [SerializeField] private float maxTimerLength = 1.5f;
+
+    protected override bool countsForScore => false;
     private float randomTimer;
 
     private void Start()

@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class ClickThrower : Thrower
 {
+    [Header("Words")]
+    public sWordList wordList;
+    protected override bool countsForScore => true;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -27,5 +31,11 @@ public class ClickThrower : Thrower
         }
 
         return (destination - startPos.position).normalized;
+    }
+
+    public override void CreateProjectile(Vector3 _targetDirection)
+    {
+        base.CreateProjectile(_targetDirection);
+        currentThrowable.word = wordList.GetRandomWord();
     }
 }

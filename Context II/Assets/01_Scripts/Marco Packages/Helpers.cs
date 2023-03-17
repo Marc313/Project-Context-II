@@ -72,6 +72,11 @@ public static class Helpers
     }
     #endregion
 
+    public static T GetRandomElement<T>(this T[] _array)
+    {
+        return _array[Random.Range(0, _array.Length)];
+    }
+
     #region Direction enum Helpers
     /*    public static Direction Opposite(this Direction dir)
         {

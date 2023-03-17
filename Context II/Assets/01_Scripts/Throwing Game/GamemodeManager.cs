@@ -1,14 +1,19 @@
 using UnityEngine;
 
-public class GamemodeManager : MonoBehaviour
+public class GamemodeManager : Singleton<GamemodeManager>
 {
     public GameObject[] activeInProtestScene;
     public GameObject[] activeInCEOScene;
 
+    public int scoreToSwitch = 5;
+
     private PlayerMovement playerMovement;
+    private int ceoHitCount;
+    private bool inCEOMode = false;
 
     private void Awake()
     {
+        Instance = this;
         playerMovement= FindObjectOfType<PlayerMovement>();
     }
 
@@ -39,12 +44,15 @@ public class GamemodeManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddCEOHitCount()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        if (inCEOMode) return;
+
+        ceoHitCount++;
+        if (ceoHitCount >= scoreToSwitch)
         {
             SwitchToCEO();
         }
     }
+
 }

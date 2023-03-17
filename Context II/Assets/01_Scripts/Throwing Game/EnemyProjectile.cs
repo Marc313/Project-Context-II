@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
@@ -73,4 +73,4 @@ public class EnemyProjectile : MonoBehaviour
         targetDirection = (target.transform.position - transform.position).normalized;
         targetDirection.y = 0; // Stay on the ground
     }
-}
+}*/

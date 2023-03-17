@@ -5,7 +5,8 @@ public abstract class Thrower : MonoBehaviour
     public GameObject throwablePrefab;
     public Transform startPos;
     public bool destroyOnImpact;
-    protected Projectile currentThrowable;
+    protected Propje currentThrowable;
+    protected abstract bool countsForScore { get; }
 
     public void Activate()
     {
@@ -16,8 +17,9 @@ public abstract class Thrower : MonoBehaviour
 
     public virtual void CreateProjectile(Vector3 _targetDirection)
     {
-        currentThrowable = Instantiate(throwablePrefab, startPos.position, Quaternion.identity).GetComponent<Projectile>();
+        currentThrowable = Instantiate(throwablePrefab, startPos.position, Quaternion.identity).GetComponent<Propje>();
         currentThrowable.SetTargetDirection(_targetDirection);
+        currentThrowable.countsToScore = countsForScore;
         currentThrowable.destroyOnImpact = destroyOnImpact;
     }
 }
