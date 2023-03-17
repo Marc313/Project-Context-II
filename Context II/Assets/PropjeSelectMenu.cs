@@ -72,7 +72,7 @@ public class PropjeSelectMenu : MonoBehaviour
         }
     }
 
-    private void GetNewWord(TMP_Text text)
+    public void GetNewWord(TMP_Text text)
     {
         string randomWord = list.GetRandomWord();
         if (!currentWords.Contains(randomWord) || list.words.Length <= texts.Length)
@@ -81,4 +81,5 @@ public class PropjeSelectMenu : MonoBehaviour
             currentWords.Add(randomWord);
         }
     }
+
 }
