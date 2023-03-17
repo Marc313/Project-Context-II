@@ -11,6 +11,7 @@ public class Propje : Projectile
         {
             GamemodeManager.Instance.AddCEOHitCount();
             _collisionObject.GetComponent<ShowText>().ShowTextObject(word);
+            FindObjectOfType<PropjeSelectMenu>().ShowButtons();
         }
         base.OnImpact(_collisionObject);
     }

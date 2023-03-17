@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class ClickThrower : Thrower
 {
-    [Header("Words")]
-    public sWordList wordList;
+    //[Header("Words")]
+    //public sWordList wordList;
+    public string currentWord { get; set; }
     protected override bool countsForScore => true;
 
     private void Update()
@@ -36,6 +37,6 @@ public class ClickThrower : Thrower
     public override void CreateProjectile(Vector3 _targetDirection)
     {
         base.CreateProjectile(_targetDirection);
-        currentThrowable.word = wordList.GetRandomWord();
+        currentThrowable.word = currentWord;
     }
 }
