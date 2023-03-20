@@ -5,12 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/02_Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/02_Scenes/Scenes Marc/Marc Journalist 1.unity
-    guid: 12d1530c9e7177f4f8d56955ba05ef5f
   - enabled: 1
     path: Assets/02_Scenes/Fanaar/Throw Test (Pillar) 1.unity
     guid: c795cba538122944d9e1794341a91161

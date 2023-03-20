@@ -1,16 +1,18 @@
-using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PropjeSelectMenu : MonoBehaviour
 {
-    public Button[] buttons;
-    public TMP_Text[] texts;
     public sWordList list;
+    private Button[] buttons;
+    private TMP_Text[] texts;
 
-    public List<string> currentWords = new List<string>();
+    private List<Argument> currentWords = new List<Argument>();
+    private Dictionary<TMP_Text, Argument> buttonArguments;
+
 
     private void Awake()
     {
@@ -49,7 +51,8 @@ public class PropjeSelectMenu : MonoBehaviour
     {
         TMP_Text text = _button.GetComponentInChildren<TMP_Text>();
         FindObjectOfType<ClickThrower>().currentWord = text.text;
-        currentWords.Remove(text.text);
+        Argument oldArgument = buttonArguments[text];
+        currentWords.Remove(oldArgument);
         GetNewWord(text);
         HideButtons();
     }
@@ -63,6 +66,25 @@ public class PropjeSelectMenu : MonoBehaviour
         }
     }
 
+    public void GetNewWord(TMP_Text text)
+    {
+        Argument randomWord = list.GetRandomWord();
+        while (currentWords.Contains(randomWord) || list.words.Length > texts.Length)
+        {
+            randomWord = list.GetRandomWord();
+        }
+
+        text.text = randomWord.word;
+        currentWords.Add(randomWord);
+        buttonArguments.Add(text, randomWord);
+    }
+
+    public string GetDescription(TMP_Text _textObject)
+    {
+        Argument argument = buttonArguments[_textObject];
+        return argument.description;
+    }
+
     private void HideButtons()
     {
         EnableClickThrower();
@@ -71,15 +93,4 @@ public class PropjeSelectMenu : MonoBehaviour
             button.gameObject.SetActive(false);
         }
     }
-
-    public void GetNewWord(TMP_Text text)
-    {
-        string randomWord = list.GetRandomWord();
-        if (!currentWords.Contains(randomWord) || list.words.Length <= texts.Length)
-        {
-            text.text = randomWord;
-            currentWords.Add(randomWord);
-        }
-    }
-
 }
