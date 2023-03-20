@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class PropjeSelectMenu : MonoBehaviour
     private TMP_Text[] texts;
 
     private List<Argument> currentWords = new List<Argument>();
-    private Dictionary<TMP_Text, Argument> buttonArguments;
+    private Dictionary<TMP_Text, Argument> buttonArguments = new Dictionary<TMP_Text, Argument>();
 
 
     private void Awake()
@@ -69,14 +70,21 @@ public class PropjeSelectMenu : MonoBehaviour
     public void GetNewWord(TMP_Text text)
     {
         Argument randomWord = list.GetRandomWord();
-        while (currentWords.Contains(randomWord) || list.words.Length > texts.Length)
+        while (currentWords.Contains(randomWord) && list.words.Length > texts.Length)
         {
             randomWord = list.GetRandomWord();
         }
 
         text.text = randomWord.word;
         currentWords.Add(randomWord);
-        buttonArguments.Add(text, randomWord);
+        if (!buttonArguments.ContainsKey(text))
+        {
+            buttonArguments.Add(text, randomWord);
+        }
+        else
+        {
+            buttonArguments[text] = randomWord;
+        }
     }
 
     public string GetDescription(TMP_Text _textObject)
@@ -90,6 +98,7 @@ public class PropjeSelectMenu : MonoBehaviour
         EnableClickThrower();
         foreach (Button button in buttons)
         {
+            button.GetComponent<ShowDescriptionOnHover>().descriptionMenu.SetActive(false);
             button.gameObject.SetActive(false);
         }
     }

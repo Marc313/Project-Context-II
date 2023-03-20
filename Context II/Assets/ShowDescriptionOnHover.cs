@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class ShowDescriptionOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject descriptionMenu;
+    [SerializeField] public GameObject descriptionMenu;
     [SerializeField] private TMP_Text descriptionText;
 
     private PropjeSelectMenu buttonMenu;
