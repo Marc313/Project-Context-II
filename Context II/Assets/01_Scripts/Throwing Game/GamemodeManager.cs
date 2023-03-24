@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GamemodeManager : Singleton<GamemodeManager>
 {
+    public UnityEvent onSwitchEvent;
     public GameObject[] activeInProtestScene;
     public GameObject[] activeInCEOScene;
 
@@ -31,6 +33,7 @@ public class GamemodeManager : Singleton<GamemodeManager>
 
     public void SwitchToCEO()
     {
+        onSwitchEvent?.Invoke();
         if (playerMovement != null) playerMovement.enabled = true;
         else Debug.Log("PlayerMovement not found");
 

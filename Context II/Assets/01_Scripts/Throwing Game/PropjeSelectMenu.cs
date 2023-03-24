@@ -1,11 +1,10 @@
+using MarcoHelpers;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PropjeSelectMenu : MonoBehaviour
+public class PropjeSelectMenu : Menu
 {
     public sWordList list;
     private Button[] buttons;
@@ -40,12 +39,12 @@ public class PropjeSelectMenu : MonoBehaviour
 
     private void EnableClickThrower()
     {
-        FindObjectOfType<ClickThrower>().enabled = true;
+        FindObjectOfType<ClickThrower>().EnableSelf();
     }
 
     private void DisableClickThrower()
     {
-        FindObjectOfType<ClickThrower>().enabled = false;
+        FindObjectOfType<ClickThrower>().DisableSelf();
     }
 
     private void ButtonClick(Button _button)
@@ -95,7 +94,8 @@ public class PropjeSelectMenu : MonoBehaviour
 
     private void HideButtons()
     {
-        EnableClickThrower();
+        //EnableClickThrower();
+        EventSystem.RaiseEvent(EventName.MENU_CLOSED);
         foreach (Button button in buttons)
         {
             button.GetComponent<ShowDescriptionOnHover>().descriptionMenu.SetActive(false);

@@ -22,6 +22,8 @@ public class AIThrower : Thrower
 
     private void Update()
     {
+        if (!isActive) return;
+
         randomTimer -= Time.deltaTime;
         if (randomTimer < 0.0f) 
         { 

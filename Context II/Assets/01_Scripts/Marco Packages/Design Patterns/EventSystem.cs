@@ -11,6 +11,7 @@ namespace MarcoHelpers
         ARTICLE_CHANGE = 2,
         MENU_OPENED = 3,
         MENU_CLOSED = 4,
+
     }
 
     public delegate void EventCallback(object _value);

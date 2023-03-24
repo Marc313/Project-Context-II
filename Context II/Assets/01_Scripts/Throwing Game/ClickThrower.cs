@@ -9,7 +9,7 @@ public class ClickThrower : Thrower
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (isActive && Input.GetKeyDown(KeyCode.Mouse0))
         {
             Activate();
         }

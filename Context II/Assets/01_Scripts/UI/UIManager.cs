@@ -151,13 +151,11 @@ public class UIManager : MonoBehaviour
         dialogueText = dialogueChoiceText;
     }
 
-    // Leave to UI Manager
     public void ShowDialogueCanvas()
     {
         dialogueCanvas.gameObject.SetActive(true);
     }
 
-    // Leave to UI Manager
     public void HideDialogueCanvas()
     {
         dialogueCanvas.gameObject.SetActive(false);

@@ -2,7 +2,6 @@ using MarcoHelpers;
 using System;
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,16 +23,15 @@ namespace newDialogue
         private bool inTextCoroutine;
 
         private PlayerController player;
-        private UIManager uiManager;
+        private UIManagerTG uiManager { 
+                get { if (ui == null) ui = ServiceLocator.GetService<UIManagerTG>(); 
+                    return ui; } 
+                set { ui = value; } }
+        private UIManagerTG ui;
 
         private void Awake()
         {
             ServiceLocator.RegisterService(this);
-        }
-
-        private void Start()
-        {
-            uiManager = ServiceLocator.GetService<UIManager>();
         }
 
         void Update()
@@ -46,13 +44,18 @@ namespace newDialogue
             }
         }
 
+        private void GetUIManager()
+        {
+            //uiManager = ServiceLocator.GetService<UIManagerTG>();
+        }
+
         private void OnInput()
         {
             if (inTextCoroutine)
             {
                 StopAllCoroutines();
                 inTextCoroutine= false;
-                uiManager.dialogueText.text = currentLine.textBlock;
+                uiManager.windowText.text = currentLine.textBlock;
             }
             else
             {
@@ -96,30 +99,29 @@ namespace newDialogue
 
             uiManager.ShowDialogueCanvas();
             uiManager.SwitchToSequence();
-            uiManager.QuesitionUI.SetActive(false); //Move
 
             inSequence = true;
             FindPlayerController();
             if (player != null) player.isInteracting = true;
 
-            uiManager.dialogueName.text = _sequence.speaker;
+            uiManager.windowTitle.text = _sequence.speaker;
 
             NextLine();
         }
        
         public void DisplayChoice(sDialogueChoiceNode _choiceNode, Action _onSubsequenceEnd = null)
         {
-            uiManager.ShowDialogueCanvas();
+/*            uiManager.ShowDialogueCanvas();
             uiManager.SwitchToChoice();
             uiManager.dialogueName.text = _choiceNode.speaker;
             uiManager.dialogueText.text = "";
             StartCoroutine(DisplayLine(_choiceNode.choiceLine));
-            uiManager.ConnectButtons(_choiceNode.choices, _onSubsequenceEnd);
+            uiManager.ConnectButtons(_choiceNode.choices, _onSubsequenceEnd);*/
         }
 
         private void NextLine()
         {
-            uiManager.dialogueText.text = "";
+            uiManager.windowText.text = "";
             StopAllCoroutines();
 
             if (sequence.HasNext())
@@ -159,7 +161,7 @@ namespace newDialogue
         IEnumerator DisplayLine(DialogueLine _line)
         {
             inTextCoroutine = true;
-            TMP_Text textBox = uiManager.dialogueText;
+            TMP_Text textBox = uiManager.windowText;
             foreach (char character in _line.textBlock)
             {
                 //uiManager.QuesitionUI.SetActive(false);
