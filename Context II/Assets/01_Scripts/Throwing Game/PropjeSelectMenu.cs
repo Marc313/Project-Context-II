@@ -39,12 +39,12 @@ public class PropjeSelectMenu : Menu
 
     private void EnableClickThrower()
     {
-        FindObjectOfType<ClickThrower>().EnableSelf();
+        FindObjectOfType<ClickThrower>()?.EnableSelf();
     }
 
     private void DisableClickThrower()
     {
-        FindObjectOfType<ClickThrower>().DisableSelf();
+        FindObjectOfType<ClickThrower>()?.DisableSelf();
     }
 
     private void ButtonClick(Button _button)

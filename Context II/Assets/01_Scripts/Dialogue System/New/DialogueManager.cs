@@ -46,7 +46,7 @@ namespace newDialogue
 
         private void GetUIManager()
         {
-            //uiManager = ServiceLocator.GetService<UIManagerTG>();
+            //convincedBar = ServiceLocator.GetService<UIManagerTG>();
         }
 
         private void OnInput()
@@ -111,12 +111,12 @@ namespace newDialogue
        
         public void DisplayChoice(sDialogueChoiceNode _choiceNode, Action _onSubsequenceEnd = null)
         {
-/*            uiManager.ShowDialogueCanvas();
-            uiManager.SwitchToChoice();
-            uiManager.dialogueName.text = _choiceNode.speaker;
-            uiManager.dialogueText.text = "";
+/*            convincedBar.ShowDialogueCanvas();
+            convincedBar.SwitchToChoice();
+            convincedBar.dialogueName.text = _choiceNode.speaker;
+            convincedBar.dialogueText.text = "";
             StartCoroutine(DisplayLine(_choiceNode.choiceLine));
-            uiManager.ConnectButtons(_choiceNode.choices, _onSubsequenceEnd);*/
+            convincedBar.ConnectButtons(_choiceNode.choices, _onSubsequenceEnd);*/
         }
 
         private void NextLine()
@@ -164,7 +164,7 @@ namespace newDialogue
             TMP_Text textBox = uiManager.windowText;
             foreach (char character in _line.textBlock)
             {
-                //uiManager.QuesitionUI.SetActive(false);
+                //convincedBar.QuesitionUI.SetActive(false);
 
                 textBox.text += character;
                 yield return new WaitForSeconds(dialogueSpeed);

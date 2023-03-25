@@ -10,8 +10,10 @@ public class Propje : Projectile
         if (countsToScore)
         {
             GamemodeManager.Instance.AddCEOHitCount();
-            _collisionObject.GetComponent<ShowText>().ShowTextObject(word);
-            FindObjectOfType<PropjeSelectMenu>().ShowButtons();
+            _collisionObject.GetComponent<ShowText>()?.ShowTextObject(word);
+            _collisionObject.GetComponent<ITarget>()?.OnHit(word);
+            _collisionObject.GetComponentInParent<ITarget>()?.OnHit(word);
+            FindObjectOfType<PropjeSelectMenu>()?.ShowButtons();
         }
         base.OnImpact(_collisionObject);
     }

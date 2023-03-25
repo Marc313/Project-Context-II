@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class Helpers
@@ -76,6 +77,11 @@ public static class Helpers
     {
         return _array[Random.Range(0, _array.Length)];
     }
+
+/*    public static T GetRandomElement<T>(this IEnumerator<T> _array)
+    {
+        return _array[Random.Range(0, _array)];
+    }*/
 
     #region Direction enum Helpers
     /*    public static Direction Opposite(this Direction dir)

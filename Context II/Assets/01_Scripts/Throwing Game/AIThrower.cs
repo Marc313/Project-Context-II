@@ -1,8 +1,12 @@
+using System.Linq;
+using ThrowingGame;
 using UnityEngine;
 
 public class AIThrower : Thrower
 {
     [Header("Target")]
+    [SerializeField] private NPCThrowing.Side side;
+    [SerializeField] private bool assignRandomTarget;
     [SerializeField] private Transform target;
 
     [Header("Throwing Offset")]
@@ -12,12 +16,24 @@ public class AIThrower : Thrower
     [SerializeField] private float minTimerLength = 0.5f;
     [SerializeField] private float maxTimerLength = 1.5f;
 
-    protected override bool countsForScore => false;
+    protected override bool countsForScore => true;
     private float randomTimer;
 
     private void Start()
     {
+        if (assignRandomTarget)
+        {
+            GetTarget();
+        }
+
+        startPos = transform;
         ResetTimer();
+    }
+
+    private void GetTarget()
+    {
+        NPCThrowing[] nPCs = side == NPCThrowing.Side.Citizen ? FindObjectsOfType<CeoNPC>() : FindObjectsOfType<CitizenNPC>();
+        target = nPCs.Select(n => n.targetPos).ToArray().GetRandomElement();
     }
 
     private void Update()

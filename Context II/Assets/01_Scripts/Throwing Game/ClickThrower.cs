@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class ClickThrower : Thrower
 {
-    //[Header("Words")]
-    //public sWordList wordList;
     public string currentWord { get; set; }
     protected override bool countsForScore => true;
 
