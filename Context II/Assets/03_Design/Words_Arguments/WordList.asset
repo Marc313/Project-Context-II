@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: WordList
   m_EditorClassIdentifier: 
   words:
-  - Eyesore
-  - Space
-  - Solar waste
-  - Sun dependence
-  - Uncontrollabilty
-  - Expensive
+  - word: Sun Dependence
+    description: Hele mooie beschrijving
+  - word: Eyesore
+    description: Hele mooie beschrijving2
+  - word: Solar Waste
+    description: Hele mooie beschrijving3
+  - word: Uncontollability
+    description: Hele mooie beschrijving4
+  - word: Expensive
+    description: Hele mooie beschrijving5
+  - word: Space
+    description: Hele mooie beschrijving6

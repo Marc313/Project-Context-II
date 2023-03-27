@@ -14,7 +14,7 @@ namespace oldDialogue
 
         private void Start()
         {
-            if (playOnStart) { TriggerDialogue(); }
+            if (playOnStart) { Invoke(nameof(TriggerDialogue), 0.05f); }
         }
 
         public void TriggerDialogue()

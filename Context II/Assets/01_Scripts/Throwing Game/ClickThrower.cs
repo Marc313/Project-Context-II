@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class ClickThrower : Thrower
 {
-    //[Header("Words")]
-    //public sWordList wordList;
     public string currentWord { get; set; }
     protected override bool countsForScore => true;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (isActive && Input.GetKeyDown(KeyCode.Mouse0))
         {
             Activate();
         }

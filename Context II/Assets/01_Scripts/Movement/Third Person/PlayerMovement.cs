@@ -1,3 +1,4 @@
+using MarcoHelpers;
 using UnityEngine;
 
 // Third Person Player Movement
@@ -30,6 +31,28 @@ public class PlayerMovement : Movement
             HandleMoveInput();
             if (rotationEnabled) UpdateTargetRotation();
         }
+    }
+
+    public void OnEnable()
+    {
+        EventSystem.Subscribe(EventName.MENU_OPENED, DisableSelf);
+        EventSystem.Subscribe(EventName.MENU_CLOSED, EnableSelf);
+    }
+
+    public void OnDisable()
+    {
+        EventSystem.Unsubscribe(EventName.MENU_OPENED, DisableSelf);
+        EventSystem.Unsubscribe(EventName.MENU_CLOSED, EnableSelf);
+    }
+
+    private void EnableSelf(object _value)
+    {
+        isInteracting = false;
+    }
+
+    private void DisableSelf(object _value)
+    {
+        isInteracting = true;
     }
 
     private void HandleMoveInput()

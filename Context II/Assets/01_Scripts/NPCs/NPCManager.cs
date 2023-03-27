@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class NPCManager : MonoBehaviour
 {
-    private List<NPC> NPCs= new List<NPC>();
+    private List<NPCThrowing> NPCs= new List<NPCThrowing>();
 
     private void Awake()
     {
-        NPCs = FindObjectsOfType<NPC>().ToList();
+        NPCs = FindObjectsOfType<NPCThrowing>().ToList();
     }
 
 *//*    private void Update()
