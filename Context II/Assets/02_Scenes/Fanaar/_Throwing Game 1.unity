@@ -2181,7 +2181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c611b107650512c47a5e77f7d454cb21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  completeDialogue: {fileID: 11400000, guid: ce20bbc8220e19d41b045a74e96e686c, type: 2}
+  completeDialogue: {fileID: 11400000, guid: f7d5a98a3956d5a44b8d38d9b8f80ad6, type: 2}
   onConversationEnd:
     m_PersistentCalls:
       m_Calls:

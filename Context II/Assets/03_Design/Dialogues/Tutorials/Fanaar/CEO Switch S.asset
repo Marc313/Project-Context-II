@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speaker: 
   dialogueLines:
-  - textBlock: You've switched sides! The same mechanics apply but your role has
-      changed. You are now PRO Solar Farms. Goodluck!
+  - textBlock: 'You''ve switched sides! The same mechanics apply but your role has
+      changed. '
+  - textBlock: You are now PRO Solar Farms. Goodluck!
