@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speaker: 
   dialogueLines:
-  - textBlock: 
+  - textBlock: You've switched sides! The same mechanics apply but your role has
+      changed. You are now PRO Solar Farms. Goodluck!

@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speaker: 
   dialogueLines:
-  - textBlock: 
+  - textBlock: Pick an argument to throw at your opponent. To pick an argument click
+      on one of the options presented to you. After you've made your decision, you
+      can point and click to throw the argument in your desired direction. You are
+      now ANTI Solarn Farms. Goodluck!
