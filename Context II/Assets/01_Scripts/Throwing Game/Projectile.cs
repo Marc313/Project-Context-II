@@ -12,14 +12,14 @@ public class Projectile : MonoBehaviour
     private Rigidbody rigidBody;
     [HideInInspector] public bool destroyOnImpact;
 
-    private void Start()
+    protected virtual void Start()
     {
         currentLifetime = lifetime;
         rigidBody = GetComponent<Rigidbody>();
         Destroy(gameObject, lifetime);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         currentLifetime -= Time.deltaTime;
         if (currentLifetime > 0)

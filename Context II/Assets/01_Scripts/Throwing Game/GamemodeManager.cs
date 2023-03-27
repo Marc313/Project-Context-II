@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 
 public class GamemodeManager : Singleton<GamemodeManager>
 {
-    public UnityEvent onSwitchEvent;
+    public UnityEvent beforeSwitchEvent;
+    public UnityEvent afterSwitchEvent;
     public GameObject[] activeInProtestScene;
     public GameObject[] activeInCEOScene;
-
-    public int scoreToSwitch = 5;
 
     private PlayerMovement playerMovement;
     private int ceoHitCount;
@@ -26,9 +26,6 @@ public class GamemodeManager : Singleton<GamemodeManager>
         {
             go.SetActive(false);
         }
-
-        if (playerMovement != null) playerMovement.enabled = false;
-        else Debug.Log("PlayerMovement not found");
     }
 
     private void Update()
@@ -44,7 +41,8 @@ public class GamemodeManager : Singleton<GamemodeManager>
         if (!inCEOMode) return;
 
         inCEOMode = false;
-        onSwitchEvent?.Invoke();
+        beforeSwitchEvent?.Invoke();
+
         if (playerMovement != null) playerMovement.enabled = true;
         else Debug.Log("PlayerMovement not found");
 
@@ -56,6 +54,9 @@ public class GamemodeManager : Singleton<GamemodeManager>
         {
             go.SetActive(false);
         }
+
+        afterSwitchEvent?.Invoke();
+        afterSwitchEvent.RemoveAllListeners();
     }
 
     public void SwitchToCEO()
@@ -63,8 +64,12 @@ public class GamemodeManager : Singleton<GamemodeManager>
         if (inCEOMode) return;
 
         inCEOMode = true;
-        onSwitchEvent?.Invoke();
-        onSwitchEvent.RemoveAllListeners();
+        beforeSwitchEvent?.Invoke();
+        Invoke(nameof(ContinueCEOSwitch), 2.0f);
+    }
+
+    private void ContinueCEOSwitch()
+    {
         if (playerMovement != null) playerMovement.enabled = true;
         else Debug.Log("PlayerMovement not found");
 
@@ -76,6 +81,9 @@ public class GamemodeManager : Singleton<GamemodeManager>
         {
             go.SetActive(false);
         }
+
+        afterSwitchEvent?.Invoke();
+        afterSwitchEvent.SetPersistentListenerState(0, UnityEventCallState.Off);
     }
 
     public void AddCEOHitCount()

@@ -8,7 +8,7 @@ public abstract class Thrower : MonoBehaviour
     public bool destroyOnImpact;
 
     protected Propje currentThrowable;
-    protected abstract bool countsForScore { get; }
+    protected abstract bool isFromPlayer { get; }
     protected bool isActive;
 
     public void Activate()
@@ -22,8 +22,14 @@ public abstract class Thrower : MonoBehaviour
     {
         currentThrowable = Instantiate(throwablePrefab, startPos.position, Quaternion.identity).GetComponent<Propje>();
         currentThrowable.SetTargetDirection(_targetDirection);
-        currentThrowable.countsToScore = countsForScore;
+        currentThrowable.isFromPlayer = isFromPlayer;
         currentThrowable.destroyOnImpact = destroyOnImpact;
+        Invoke(nameof(EnableCollider), .3f);
+    }
+
+    public void EnableCollider()
+    {
+        currentThrowable.GetComponent<Collider>().enabled = true;
     }
 
     public void OnEnable()
@@ -40,6 +46,7 @@ public abstract class Thrower : MonoBehaviour
 
     public void EnableSelf(object _value = null)
     {
+        //if (FindObjectOfType<PropjeSelectMenu>()?.GetComponentInChildren<UnityEngine.UI.Button>() == null)
         isActive = true;
     }
 

@@ -1,7 +1,7 @@
 using MarcoHelpers;
 using UnityEngine;
 
-// Third Person Player Movement
+// Third Person player Movement
 public class PlayerMovement : Movement
 {
     public float currentMoveSpeed;
@@ -20,7 +20,6 @@ public class PlayerMovement : Movement
 
     private void Awake()
     {
-        playerCamera = FindObjectOfType<FollowPlayer>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -31,6 +30,11 @@ public class PlayerMovement : Movement
             HandleMoveInput();
             if (rotationEnabled) UpdateTargetRotation();
         }
+    }
+
+    public void InsertCamera(FollowPlayer _playerCamera)
+    {
+        playerCamera= _playerCamera;
     }
 
     public void OnEnable()

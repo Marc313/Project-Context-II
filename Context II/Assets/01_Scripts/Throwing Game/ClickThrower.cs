@@ -1,13 +1,15 @@
+using System.Linq;
 using UnityEngine;
 
 public class ClickThrower : Thrower
 {
     public string currentWord { get; set; }
-    protected override bool countsForScore => true;
+    protected override bool isFromPlayer => true;
+    [SerializeField] private bool onlyOneAllowed = true;
 
     private void Update()
     {
-        if (isActive && Input.GetKeyDown(KeyCode.Mouse0))
+        if (isActive && Input.GetKeyDown(KeyCode.Mouse0) && !isPropjeFromPlayerAround())
         {
             Activate();
         }
@@ -36,5 +38,10 @@ public class ClickThrower : Thrower
     {
         base.CreateProjectile(_targetDirection);
         currentThrowable.word = currentWord;
+    }
+
+    private bool isPropjeFromPlayerAround()
+    {
+        return FindObjectsOfType<Propje>().Select(p => p.isFromPlayer).Where(b => b == true).Count() >= 1;
     }
 }

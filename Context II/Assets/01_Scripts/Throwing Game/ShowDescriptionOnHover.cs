@@ -18,13 +18,13 @@ public class ShowDescriptionOnHover : MonoBehaviour, IPointerEnterHandler, IPoin
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        descriptionMenu.SetActive(true);
-        descriptionText.text = buttonMenu.GetDescription(childText);
+/*        descriptionMenu.SetActive(true);
+        descriptionText.text = buttonMenu.GetDescription(childText);*/
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        descriptionMenu.SetActive(false);
-        descriptionText.text = string.Empty;
+/*        descriptionMenu.SetActive(false);
+        descriptionText.text = string.Empty;*/
     }
 }

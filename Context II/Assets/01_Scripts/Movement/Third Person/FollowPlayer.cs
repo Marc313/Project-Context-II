@@ -3,26 +3,24 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public float camSmoothing;
-    public float sensitivityX;
-    public Vector3 Offset;
-    public Transform EnemyLockOn;
+    [SerializeField] private float camSmoothing;
+    [SerializeField] private float sensitivityX;
+    [SerializeField] private Vector3 offset;
+    [SerializeField] private Transform player;
 
     public bool rotationEnabled = true;
 
     private float rotationY;
-    private Transform Player;
     private PlayerMovement playerMovement;
 
     public Quaternion targetLookRotation { get; private set; }
 
-    // Play is called before the first frame update
-    void Awake()
+    private void Start()
     {
-        Player = FindObjectOfType<PlayerMovement>().transform;
+        FindPlayerController();
+        playerMovement?.InsertCamera(this);
     }
 
-    // Update is called once per frame
     void Update()
     {
         FindPlayerController();
@@ -37,7 +35,7 @@ public class FollowPlayer : MonoBehaviour
     private void MoveToPlayer()
     {
         // Move the camera along with the player
-        transform.position = Player.position + Offset;
+        transform.position = player.position + offset;
     }
 
     public void RotateCameraAlongMouse()
@@ -54,7 +52,7 @@ public class FollowPlayer : MonoBehaviour
         if (playerMovement == null)
         {
             // Try to find the PlayerController script. This will only work if the target is a player
-            playerMovement = Player.GetComponent<PlayerMovement>();
+            playerMovement = player.GetComponent<PlayerMovement>();
         }
     }
 }

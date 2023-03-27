@@ -14,6 +14,11 @@ public class UIManagerTG : MonoBehaviour
     {
         ServiceLocator.RegisterService(this);
     }
+/*
+    private void Update()
+    {
+        propjeSelectMenu.SetActive(false);
+    }*/
 
     public void ShowDialogueCanvas()
     {

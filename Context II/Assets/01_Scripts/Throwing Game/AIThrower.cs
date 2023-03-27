@@ -16,7 +16,7 @@ public class AIThrower : Thrower
     [SerializeField] private float minTimerLength = 0.5f;
     [SerializeField] private float maxTimerLength = 1.5f;
 
-    protected override bool countsForScore => true;
+    protected override bool isFromPlayer => false;
     private float randomTimer;
 
     private void Start()
@@ -32,7 +32,7 @@ public class AIThrower : Thrower
 
     private void GetTarget()
     {
-        NPCThrowing[] nPCs = side == NPCThrowing.Side.Citizen ? FindObjectsOfType<CeoNPC>() : FindObjectsOfType<CitizenNPC>();
+        NPCThrowing[] nPCs = side == NPCThrowing.Side.Citizen ? FindObjectsOfType<CitizenNPC>() : FindObjectsOfType<CeoNPC>();
         target = nPCs.Select(n => n.targetPos).ToArray().GetRandomElement();
     }
 
@@ -56,7 +56,7 @@ public class AIThrower : Thrower
     public override void CreateProjectile(Vector3 _targetDirection)
     {
         base.CreateProjectile(_targetDirection);
-        Debug.Log("AIActivate");
+        //Debug.Log("AIActivate");
     }
 
     public override Vector3 CalculateTargetDirection()

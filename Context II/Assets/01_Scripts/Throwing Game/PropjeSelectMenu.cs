@@ -1,7 +1,6 @@
 using MarcoHelpers;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class PropjeSelectMenu : Menu
@@ -12,7 +11,6 @@ public class PropjeSelectMenu : Menu
 
     private List<Argument> currentWords = new List<Argument>();
     private Dictionary<TMP_Text, Argument> buttonArguments = new Dictionary<TMP_Text, Argument>();
-
 
     private void Awake()
     {
@@ -37,14 +35,29 @@ public class PropjeSelectMenu : Menu
         DisableClickThrower();
     }
 
+    private void Update()
+    {
+        if (buttons[0].IsActive())
+        {
+            DisableClickThrower();
+        }
+    }
+
     private void EnableClickThrower()
     {
-        FindObjectOfType<ClickThrower>()?.EnableSelf();
+        var clicks = FindObjectsOfType<ClickThrower>();
+        foreach (var click in clicks) {
+            click.EnableSelf();
+        }
     }
 
     private void DisableClickThrower()
     {
-        FindObjectOfType<ClickThrower>()?.DisableSelf();
+        var clicks = FindObjectsOfType<ClickThrower>();
+        foreach (var click in clicks)
+        {
+            click.DisableSelf();
+        }
     }
 
     private void ButtonClick(Button _button)

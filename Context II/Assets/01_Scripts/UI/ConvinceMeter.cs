@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class ConvinceMeter : MonoBehaviour
 {
-    public float onHitValue;
+    public float onPlayerHitValue;
+    public float onNPCHitValue;
     public float switchThreshold;
 
     private float currentValue;
@@ -22,9 +23,10 @@ public class ConvinceMeter : MonoBehaviour
         convincedBar.value = currentValue;
     }
 
-    public void ChangeConvinceValue(ThrowingGame.NPCThrowing.Side _side)
+    public void ChangeConvinceValue(ThrowingGame.NPCThrowing.Side _side, bool _isFromPlayer)
     {
-        float addition = _side == ThrowingGame.NPCThrowing.Side.Citizen ? -onHitValue : onHitValue;
+        float addition = _isFromPlayer ? onPlayerHitValue : onNPCHitValue;
+        addition = _side == ThrowingGame.NPCThrowing.Side.Citizen ? -addition : addition;
         convincedBar.value = Mathf.Clamp01(convincedBar.value + addition);
         currentValue = convincedBar.value;
 

@@ -40,10 +40,10 @@ namespace ThrowingGame
             textElement.gameObject.SetActive(false);
         }
 
-        public void OnHit(string _word)
+        public void OnHit(string _word, bool _isPropFromPlayer)
         {
             ShowTextObject(_word);
-            convincedBar.ChangeConvinceValue(side);
+            convincedBar.ChangeConvinceValue(side, _isPropFromPlayer);
         }
     }
 }

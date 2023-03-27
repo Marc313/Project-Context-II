@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -11,7 +13,7 @@ public class MovingObject : MonoBehaviour
     /// <param name="oldPos"></param>
     /// <param name="targetPos"></param>
     /// <param name="timeInSeconds"></param>
-    public async Task MoveToInSeconds(Vector3 oldPos, Vector3 targetPos, float timeInSeconds)
+    public IEnumerator MoveToInSeconds(Vector3 oldPos, Vector3 targetPos, float timeInSeconds, Action _onDone = null)
     {
         transform.position = oldPos;
         float distance = Vector3.Distance(oldPos, targetPos);
@@ -22,17 +24,17 @@ public class MovingObject : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             t += Time.deltaTime;
-            await Task.Yield();
+            yield return null;
         }
         transform.position = targetPos;
 
-        //onDone?.Invoke();
+        _onDone?.Invoke();
     }
 
     /**
      * Rotates the object from one orientation to another with a certain rotation speed.
      */
-    public async Task RotateTowardsInSeconds(Quaternion oldRotation, Quaternion targetRotation, float timeInSeconds)
+    public IEnumerator RotateTowardsInSeconds(Quaternion oldRotation, Quaternion targetRotation, float timeInSeconds)
     {
         float angle = Quaternion.Angle(oldRotation, targetRotation);
         float rotationSpeed = angle / timeInSeconds;
@@ -44,7 +46,7 @@ public class MovingObject : MonoBehaviour
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             t += Time.deltaTime;
-            await Task.Yield();
+            yield return null;
         }
         transform.rotation = targetRotation;
 
