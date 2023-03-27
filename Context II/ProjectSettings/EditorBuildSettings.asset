@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/02_Scenes/Fanaar/Throw Test (Pillar) 1.unity
+    guid: c795cba538122944d9e1794341a91161
   m_configObjects: {}
