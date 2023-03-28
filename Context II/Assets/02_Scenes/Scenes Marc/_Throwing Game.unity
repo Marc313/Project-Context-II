@@ -13972,7 +13972,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  totalGameDurationSeconds: 30
+  totalGameDurationSeconds: 60
 --- !u!1001 &2138234106
 PrefabInstance:
   m_ObjectHideFlags: 0
