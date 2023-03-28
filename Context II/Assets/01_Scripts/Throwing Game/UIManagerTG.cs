@@ -10,15 +10,22 @@ public class UIManagerTG : MonoBehaviour
     [SerializeField] private GameObject propjeSelectMenu;
     [SerializeField] private GameObject HUD;
 
+    private int captureCount = 0;
+
     private void Awake()
     {
         ServiceLocator.RegisterService(this);
     }
-/*
+
     private void Update()
     {
-        propjeSelectMenu.SetActive(false);
-    }*/
+        //propjeSelectMenu.SetActive(false);
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            captureCount++;
+            ScreenCapture.CaptureScreenshot("Assets/Screenshots/Throwing" + captureCount + ".jpg");
+        }
+    }
 
     public void ShowDialogueCanvas()
     {

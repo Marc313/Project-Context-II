@@ -11,6 +11,11 @@ public class Propje : Projectile
     protected override void Start()
     {
         base.Start();
+
+        if (isFromPlayer && currentLifetime > 0.0f && currentLifetime < 2.5f)
+        {
+            base.OnImpact(null);
+        }
 /*        startY = transform.position.y;*/
     }
 

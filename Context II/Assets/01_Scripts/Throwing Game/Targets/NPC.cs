@@ -43,6 +43,7 @@ namespace ThrowingGame
         public void OnHit(string _word, bool _isPropFromPlayer)
         {
             ShowTextObject(_word);
+            if (GetComponentInParent<PlayerMovement>()) _isPropFromPlayer = true;   // Propje against player should also count more
             convincedBar.ChangeConvinceValue(side, _isPropFromPlayer);
         }
     }

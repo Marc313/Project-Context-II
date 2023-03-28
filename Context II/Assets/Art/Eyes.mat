@@ -118,7 +118,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Pupil_size: 2.5
+    - _Pupil_size: 1.51
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -130,9 +130,9 @@ Material:
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _eyelid: 0.008
+    - _eyelid: 0.018
     - _pupil_lenght: 0.97
-    - _x: 0.5
+    - _x: 0.27
     - _y: 0.25
     m_Colors:
     - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}

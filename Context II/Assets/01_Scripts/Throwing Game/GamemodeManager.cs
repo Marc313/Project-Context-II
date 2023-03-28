@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class GamemodeManager : Singleton<GamemodeManager>
 {
@@ -8,6 +9,8 @@ public class GamemodeManager : Singleton<GamemodeManager>
     public UnityEvent afterSwitchEvent;
     public GameObject[] activeInProtestScene;
     public GameObject[] activeInCEOScene;
+
+    public PropjeSelectMenu selectMenu;
 
     private PlayerMovement playerMovement;
     private int ceoHitCount;
@@ -43,6 +46,11 @@ public class GamemodeManager : Singleton<GamemodeManager>
         inCEOMode = false;
         beforeSwitchEvent?.Invoke();
 
+        Invoke(nameof(ContinueCitizenSwitch), 2.0f);
+    }
+
+    private void ContinueCitizenSwitch()
+    {
         if (playerMovement != null) playerMovement.enabled = true;
         else Debug.Log("PlayerMovement not found");
 
@@ -57,6 +65,7 @@ public class GamemodeManager : Singleton<GamemodeManager>
 
         afterSwitchEvent?.Invoke();
         afterSwitchEvent.RemoveAllListeners();
+        selectMenu?.OnSwitch(false);
     }
 
     public void SwitchToCEO()
@@ -84,6 +93,7 @@ public class GamemodeManager : Singleton<GamemodeManager>
 
         afterSwitchEvent?.Invoke();
         afterSwitchEvent.SetPersistentListenerState(0, UnityEventCallState.Off);
+        selectMenu?.OnSwitch(true);
     }
 
     public void AddCEOHitCount()
@@ -95,6 +105,16 @@ public class GamemodeManager : Singleton<GamemodeManager>
         {
             SwitchToCEO();
         }*/
+    }
+
+    public void LoadScene(int index)
+    {
+        SceneManager.LoadScene(index);
+    } 
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

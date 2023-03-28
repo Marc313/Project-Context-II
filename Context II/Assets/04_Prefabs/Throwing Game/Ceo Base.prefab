@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrower: {fileID: 2553892951702771419}
+  movement: {fileID: 0}
 --- !u!1 &708271331682408386
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,11 +633,12 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 690634084306561831, guid: d40dd0e904e92f0459a0cb707c9b1ccf, type: 3}
-  - {fileID: -1516256391652033987, guid: d40dd0e904e92f0459a0cb707c9b1ccf, type: 3}
-  - {fileID: 6098924145076851180, guid: d40dd0e904e92f0459a0cb707c9b1ccf, type: 3}
+  - {fileID: 8187692871685281907, guid: 913c5daee9cf9474d8e2d2960fb3b4df, type: 3}
+  - {fileID: -1580535799172915004, guid: 913c5daee9cf9474d8e2d2960fb3b4df, type: 3}
+  - {fileID: 2100000, guid: 03e4bb3a8e3d4f5459c728ea1185b331, type: 2}
   - {fileID: -6820086067423744752, guid: d40dd0e904e92f0459a0cb707c9b1ccf, type: 3}
-  - {fileID: -1580535799172915004, guid: d40dd0e904e92f0459a0cb707c9b1ccf, type: 3}
+  - {fileID: -6820086067423744752, guid: d40dd0e904e92f0459a0cb707c9b1ccf, type: 3}
+  - {fileID: -1580535799172915004, guid: 913c5daee9cf9474d8e2d2960fb3b4df, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -758,13 +760,13 @@ MonoBehaviour:
     type: 3}
   startPos: {fileID: 7047215324102618232}
   destroyOnImpact: 1
+  anim: {fileID: 5696662132088549570}
   side: 0
   assignRandomTarget: 1
   target: {fileID: 0}
   maxOffsetAmount: 0.4
   minTimerLength: 2.5
   maxTimerLength: 5
-  anim: {fileID: 5696662132088549570}
 --- !u!1 &2943658194430407403
 GameObject:
   m_ObjectHideFlags: 0

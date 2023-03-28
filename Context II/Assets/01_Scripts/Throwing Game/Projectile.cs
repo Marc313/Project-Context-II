@@ -4,9 +4,10 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float forceMultiplier;
+    [SerializeField] private float yForceMultiplier;
     [SerializeField] private float lifetime = 7;
 
-    private float currentLifetime;
+    protected float currentLifetime;
 
     private Vector3 targetDirection;
     private Rigidbody rigidBody;
@@ -23,7 +24,10 @@ public class Projectile : MonoBehaviour
     {
         currentLifetime -= Time.deltaTime;
         if (currentLifetime > 0)
-        rigidBody.AddForce(targetDirection * forceMultiplier * Time.deltaTime * 1/currentLifetime * lifetime, ForceMode.Acceleration);
+        {
+            rigidBody.AddForce(targetDirection * forceMultiplier * Time.deltaTime * 1 / currentLifetime * lifetime, ForceMode.Acceleration);
+            rigidBody.AddForce(targetDirection * yForceMultiplier * Time.deltaTime * (lifetime/2 - currentLifetime), ForceMode.Acceleration);
+        }
     }
 
     public void SetTargetDirection(Vector3 _direction)
@@ -48,7 +52,7 @@ public class Projectile : MonoBehaviour
 
         if (player != null)
         {
-            Debug.Log("PLAYER HIT");
+            //Debug.Log("PLAYER HIT");
         }
 
         if (destroyOnImpact && otherProjectile == null)

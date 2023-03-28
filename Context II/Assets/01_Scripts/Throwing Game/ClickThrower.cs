@@ -7,15 +7,19 @@ public class ClickThrower : Thrower
     protected override bool isFromPlayer => true;
     [SerializeField] private bool onlyOneAllowed = true;
 
+    private Vector3 precalculatedDestination; 
+
     private void Update()
     {
         if (isActive && Input.GetKeyDown(KeyCode.Mouse0) && !isPropjeFromPlayerAround())
         {
-            Activate();
+            precalculatedDestination = PrecalculateDirection();
+            PlayThrowAnimation();
+            //Activate();
         }
     }
 
-    public override Vector3 CalculateTargetDirection()
+    private Vector3 PrecalculateDirection()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -31,7 +35,14 @@ public class ClickThrower : Thrower
             destination = ray.GetPoint(1000);
         }
 
-        return (destination - startPos.position).normalized;
+        destination.y = transform.position.y;
+
+        return destination;
+    }
+
+    public override Vector3 CalculateTargetDirection()
+    {
+        return (precalculatedDestination - startPos.position).normalized;
     }
 
     public override void CreateProjectile(Vector3 _targetDirection)

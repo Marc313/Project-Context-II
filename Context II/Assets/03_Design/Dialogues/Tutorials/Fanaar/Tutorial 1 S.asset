@@ -15,9 +15,9 @@ MonoBehaviour:
   speaker: Tutorial
   dialogueLines:
   - textBlock: 'Pick an argument to throw at your opponent. '
-  - textBlock: To pick an argument click on one of the options presented to you.
+  - textBlock: To pick an argument, click on one of the options presented to you.
       After you've made your decision, you can point and click to throw the argument
       in your desired direction.
-  - textBlock: There will also be arguments flying your way. Dodge these by using
-      the A or D key.
-  - textBlock: You are now ANTI Solarn Farms. Goodluck!
+  - textBlock: But look out! There will also be arguments flying your way. Dodge
+      these by using the A or D key.
+  - textBlock: You are now ANTI Solar Farms. Goodluck!

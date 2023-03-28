@@ -11,12 +11,20 @@ public abstract class Thrower : MonoBehaviour
     protected abstract bool isFromPlayer { get; }
     protected bool isActive;
 
+    [Header("Character Animation")]
+    [SerializeField] private Animator anim;
+
     public void Activate()
     {
         CreateProjectile(CalculateTargetDirection());
     }
 
     public abstract Vector3 CalculateTargetDirection();
+
+    public void PlayThrowAnimation()
+    {
+        anim.CrossFade("Smack2", 0.2f, 0);
+    }
 
     public virtual void CreateProjectile(Vector3 _targetDirection)
     {

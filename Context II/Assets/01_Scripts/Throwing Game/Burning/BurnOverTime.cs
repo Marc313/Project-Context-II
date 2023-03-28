@@ -40,7 +40,7 @@ public class BurnOverTime : MonoBehaviour
         {
             fireObject.SetActive(true);
             isBurning = true;
-            Debug.Log("Burn!");
+            //Debug.Log("Burn!");
         }
         else if (isBurning && !isMaterialChanged && TimeManager.Instance.TimePercent > burnPercent + burnDuration)
         {
@@ -50,7 +50,7 @@ public class BurnOverTime : MonoBehaviour
         else if (isBurning && TimeManager.Instance.TimePercent > burnPercent + fireDuration)
         {
             fireObject.SetActive(false);
-            Debug.Log("Stop burning");
+            //Debug.Log("Stop burning");
         }
 
     }

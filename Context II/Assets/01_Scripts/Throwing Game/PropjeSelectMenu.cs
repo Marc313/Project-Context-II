@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class PropjeSelectMenu : Menu
 {
-    public sWordList list;
+    public sWordList citizenList;
+    public sWordList ceoList;
     private Button[] buttons;
     private TMP_Text[] texts;
 
     private List<Argument> currentWords = new List<Argument>();
     private Dictionary<TMP_Text, Argument> buttonArguments = new Dictionary<TMP_Text, Argument>();
+    private sWordList currentList;
+    private bool isCEO;
 
     private void Awake()
     {
@@ -27,6 +30,7 @@ public class PropjeSelectMenu : Menu
 
     private void Start()
     {
+        currentList = citizenList;
         foreach (TMP_Text text in texts)
         {
             GetNewWord(text);
@@ -40,6 +44,21 @@ public class PropjeSelectMenu : Menu
         if (buttons[0].IsActive())
         {
             DisableClickThrower();
+        }
+    }
+
+    public void OnSwitch(bool _isCEO)
+    {
+        if (isCEO != _isCEO)
+        {
+            isCEO = _isCEO;
+            currentList = isCEO ? ceoList : citizenList;
+            currentWords = new List<Argument>();
+            foreach (TMP_Text text in texts)
+            {
+                GetNewWord(text);
+            }
+            ShowButtons();
         }
     }
 
@@ -81,10 +100,10 @@ public class PropjeSelectMenu : Menu
 
     public void GetNewWord(TMP_Text text)
     {
-        Argument randomWord = list.GetRandomWord();
-        while (currentWords.Contains(randomWord) && list.words.Length > texts.Length)
+        Argument randomWord = currentList.GetRandomWord();
+        while (currentWords.Contains(randomWord) && currentList.words.Length > texts.Length)
         {
-            randomWord = list.GetRandomWord();
+            randomWord = currentList.GetRandomWord();
         }
 
         text.text = randomWord.word;

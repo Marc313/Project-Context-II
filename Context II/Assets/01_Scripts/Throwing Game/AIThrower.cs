@@ -16,9 +16,6 @@ public class AIThrower : Thrower
     [SerializeField] private float minTimerLength = 0.5f;
     [SerializeField] private float maxTimerLength = 1.5f;
 
-    [Header("Character Animation")]
-    [SerializeField] private Animator anim;
-
     protected override bool isFromPlayer => false;
     private float randomTimer;
 
@@ -45,8 +42,8 @@ public class AIThrower : Thrower
 
         randomTimer -= Time.deltaTime;
         if (randomTimer < 0.0f) 
-        { 
-            anim.CrossFade("Smack2", 0.2f, 0);
+        {
+            PlayThrowAnimation();
             ResetTimer();
         }
     }
