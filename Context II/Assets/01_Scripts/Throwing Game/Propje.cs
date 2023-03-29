@@ -4,6 +4,7 @@ public class Propje : Projectile
 {
     [HideInInspector] public bool isFromPlayer = false;
     public string word { get; set; }
+    public float playerSizeModifier = 1.5f;
 
     private float time;
     private float startY;
@@ -12,9 +13,9 @@ public class Propje : Projectile
     {
         base.Start();
 
-        if (isFromPlayer && currentLifetime > 0.0f && currentLifetime < 2.5f)
+        if (isFromPlayer)
         {
-            base.OnImpact(null);
+            transform.localScale = transform.localScale * playerSizeModifier;
         }
 /*        startY = transform.position.y;*/
     }
@@ -24,16 +25,20 @@ public class Propje : Projectile
 /*        time++;
         transform.SetYPosition(Mathf.Sin(time/ 10f) + startY);*/
         base.Update();
+
+        if (isFromPlayer && currentLifetime > 0.0f && currentLifetime < 2.5f)
+        {
+            base.OnImpact(null);
+        }
     }
 
     protected override void OnImpact(GameObject _collisionObject)
     {
-        PlayerMovement player = _collisionObject.GetComponentInParent<PlayerMovement>();
-        if (player != null) return;
-
+/*        PlayerMovement player = _collisionObject.GetComponentInParent<PlayerMovement>();
+        if (player != null) return;*/
 
         GamemodeManager.Instance.AddCEOHitCount();
-        _collisionObject.GetComponent<ShowText>()?.ShowTextObject(word);
+        //_collisionObject.GetComponent<ShowText>()?.ShowTextObject(word);
         _collisionObject.GetComponent<ITarget>()?.OnHit(word, isFromPlayer);
         _collisionObject.GetComponentInParent<ITarget>()?.OnHit(word, isFromPlayer);
 

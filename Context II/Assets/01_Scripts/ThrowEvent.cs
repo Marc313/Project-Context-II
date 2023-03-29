@@ -4,6 +4,7 @@ public class ThrowEvent : MonoBehaviour
 {
     [SerializeField] private Thrower thrower;
     [SerializeField] private PlayerMovement movement;
+    [SerializeField] private PlayerLogic logic;
 
     public void ActivateAIThrower()
     {
@@ -20,5 +21,13 @@ public class ThrowEvent : MonoBehaviour
     {
         if (movement != null)
         movement.isInteracting = false;
+    }
+
+    public void HidePropie()
+    {
+        if (logic != null)
+        {
+            logic.HideProp();
+        }
     }
 }

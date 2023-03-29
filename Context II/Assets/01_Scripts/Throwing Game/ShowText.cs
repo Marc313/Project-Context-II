@@ -14,6 +14,8 @@ public class ShowText : MonoBehaviour
 
     public void ShowTextObject(string _word)
     {
+        if (_word == null && _word == string.Empty) return;
+
         textElement.text = _word;
         textElement.gameObject.SetActive(true);
         Invoke(nameof(DisableText), textDuration);

@@ -81,6 +81,7 @@ MonoBehaviour:
   lifetime: 7
   destroyOnImpact: 0
   isFromPlayer: 0
+  playerSizeModifier: 1.5
 --- !u!1001 &7002839242530096313
 PrefabInstance:
   m_ObjectHideFlags: 0

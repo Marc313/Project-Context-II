@@ -81,6 +81,8 @@ public class PropjeSelectMenu : Menu
 
     private void ButtonClick(Button _button)
     {
+        EventSystem.RaiseEvent(EventName.PROPJE_CHOSEN);
+
         TMP_Text text = _button.GetComponentInChildren<TMP_Text>();
         FindObjectOfType<ClickThrower>().currentWord = text.text;
         Argument oldArgument = buttonArguments[text];

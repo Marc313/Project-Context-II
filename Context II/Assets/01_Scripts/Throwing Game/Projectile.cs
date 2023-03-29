@@ -48,12 +48,6 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider _collision)
     {
         Projectile otherProjectile = _collision.gameObject.GetComponent<Projectile>();
-        PlayerLogic player = _collision.gameObject.GetComponentInParent<PlayerLogic>();
-
-        if (player != null)
-        {
-            //Debug.Log("PLAYER HIT");
-        }
 
         if (destroyOnImpact && otherProjectile == null)
         {

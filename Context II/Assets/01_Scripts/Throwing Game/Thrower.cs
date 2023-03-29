@@ -23,7 +23,10 @@ public abstract class Thrower : MonoBehaviour
 
     public void PlayThrowAnimation()
     {
-        anim.CrossFade("Smack2", 0.2f, 0);
+        if (/*!anim.IsInTransition(0) &&*/
+            !anim.GetCurrentAnimatorStateInfo(0).IsName("ImpactSmall")
+            || !anim.GetCurrentAnimatorStateInfo(0).IsName("ImpactLargeGut"))
+             anim.CrossFade("Smack2", 0.05f, 0);
     }
 
     public virtual void CreateProjectile(Vector3 _targetDirection)

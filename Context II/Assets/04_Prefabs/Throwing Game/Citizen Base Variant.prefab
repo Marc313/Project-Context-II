@@ -12,6 +12,21 @@ PrefabInstance:
       propertyPath: side
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4015025004386488587, guid: b8d774f31098184409a075bb49ceeedc,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.79215693
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015025004386488587, guid: b8d774f31098184409a075bb49ceeedc,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.654902
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015025004386488587, guid: b8d774f31098184409a075bb49ceeedc,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.26666668
+      objectReference: {fileID: 0}
     - target: {fileID: 4043807541442714244, guid: b8d774f31098184409a075bb49ceeedc,
         type: 3}
       propertyPath: m_RootOrder
