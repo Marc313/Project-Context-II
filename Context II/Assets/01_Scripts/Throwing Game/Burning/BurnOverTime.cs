@@ -13,12 +13,14 @@ public class BurnOverTime : MonoBehaviour
     private float maxStartBurnPercent;
 
     [Range(0, 1)]
-    [SerializeField] private float fireDuration = 0.5f;
+    [SerializeField] private float minFireDuration = 0.5f;
+    [SerializeField] private float maxfireDuration = 0.8f;
     [Range(0, 1)]
     [SerializeField] private float burnDuration = 0.25f;
     [SerializeField] private Material burnMaterial;
 
     private float burnPercent;
+    private float fireDuration;
     private bool isBurning;
     private bool isMaterialChanged;
     private GameObject fireObject;
@@ -32,6 +34,7 @@ public class BurnOverTime : MonoBehaviour
     {
         fireObject.SetActive(false);
         burnPercent = Random.Range(minStartBurnPercent, maxStartBurnPercent);
+        fireDuration = Random.Range(minFireDuration, maxfireDuration);
     }
 
     private void Update()

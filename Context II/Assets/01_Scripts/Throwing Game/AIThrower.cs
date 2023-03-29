@@ -5,7 +5,6 @@ using UnityEngine;
 public class AIThrower : Thrower
 {
     [Header("Target")]
-    [SerializeField] private NPCThrowing.Side side;
     [SerializeField] private bool assignRandomTarget;
     [SerializeField] private Transform target;
 
@@ -21,6 +20,7 @@ public class AIThrower : Thrower
 
     private void Start()
     {
+        side = GetComponentInParent<NPCThrowing>().side;
         if (assignRandomTarget)
         {
             GetTarget();
@@ -32,7 +32,7 @@ public class AIThrower : Thrower
 
     private void GetTarget()
     {
-        NPCThrowing[] nPCs = side == NPCThrowing.Side.Citizen ? FindObjectsOfType<CitizenNPC>() : FindObjectsOfType<CeoNPC>();
+        NPCThrowing[] nPCs = side == NPCThrowing.Side.Citizen ? FindObjectsOfType<CeoNPC>() : FindObjectsOfType<CitizenNPC>();
         target = nPCs.Select(n => n.targetPos).ToArray().GetRandomElement();
     }
 

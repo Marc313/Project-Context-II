@@ -77,7 +77,11 @@ namespace ThrowingGame
 
         public void OnHit(string _word, bool _isPropFromPlayer)
         {
-            if (isPlayer) Debug.Log("Player Hit");
+            if (isPlayer)
+            {
+                AudioManager.Instance.PlayOofSound();
+                Debug.Log("Player Hit");
+            }
 
             //if (_word == null && _word == string.Empty) return;
             if (hitAnimations) PlayHitAnimation(_isPropFromPlayer);

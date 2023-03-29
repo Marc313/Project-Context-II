@@ -1,4 +1,5 @@
 using MarcoHelpers;
+using ThrowingGame;
 using UnityEngine;
 
 public abstract class Thrower : MonoBehaviour
@@ -6,10 +7,11 @@ public abstract class Thrower : MonoBehaviour
     public GameObject throwablePrefab;
     public Transform startPos;
     public bool destroyOnImpact;
+    public NPCThrowing.Side side;
 
     protected Propje currentThrowable;
-    protected abstract bool isFromPlayer { get; }
     protected bool isActive;
+    protected abstract bool isFromPlayer { get; }
 
     [Header("Character Animation")]
     [SerializeField] private Animator anim;
@@ -35,6 +37,7 @@ public abstract class Thrower : MonoBehaviour
         currentThrowable.SetTargetDirection(_targetDirection);
         currentThrowable.isFromPlayer = isFromPlayer;
         currentThrowable.destroyOnImpact = destroyOnImpact;
+        currentThrowable.side = side;
         Invoke(nameof(EnableCollider), .3f);
     }
 

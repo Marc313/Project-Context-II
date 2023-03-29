@@ -182,6 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minStartBurnPercent: 0.3
   maxStartBurnPercent: 0.6
-  fireDuration: 0.5
+  minFireDuration: 0.5
+  maxfireDuration: 1.3
   burnDuration: 0.25
   burnMaterial: {fileID: 2100000, guid: 5ea1abd0cd22bf541a3d17ab7f4b1687, type: 2}

@@ -1,13 +1,15 @@
+using MarcoHelpers;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class TimeManager : Singleton<TimeManager>
 {
-    public UnityEvent onTimerEnd;
+    public UnityEvent OnCutsceneEnd;
     public float TimePercent => currentTime / totalGameDurationSeconds;
     [SerializeField] private float totalGameDurationSeconds = 30;
     private float currentTime;
     private bool hasEnded;
+    private bool playCutscene = true;
 
     private void Awake()
     {
@@ -20,9 +22,18 @@ public class TimeManager : Singleton<TimeManager>
 
         if (!hasEnded && currentTime > totalGameDurationSeconds)
         {
+            EventSystem.RaiseEvent(EventName.MENU_OPENED);
             Debug.Log("Game End");
             hasEnded = true;
-            onTimerEnd?.Invoke();
+            if (playCutscene)
+            {
+                FindObjectOfType<EndCutscene>().Play(OnCutsceneEnd);
+
+            }
+            else
+            {
+                OnCutsceneEnd?.Invoke();
+            }
         }
     }
 }

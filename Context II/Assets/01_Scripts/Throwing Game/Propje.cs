@@ -1,3 +1,4 @@
+using ThrowingGame;
 using UnityEngine;
 
 public class Propje : Projectile
@@ -5,6 +6,7 @@ public class Propje : Projectile
     [HideInInspector] public bool isFromPlayer = false;
     public string word { get; set; }
     public float playerSizeModifier = 1.5f;
+    public NPCThrowing.Side side;
 
     private float time;
     private float startY;
@@ -34,8 +36,9 @@ public class Propje : Projectile
 
     protected override void OnImpact(GameObject _collisionObject)
     {
-/*        PlayerMovement player = _collisionObject.GetComponentInParent<PlayerMovement>();
-        if (player != null) return;*/
+        NPCThrowing citizen = _collisionObject.GetComponentInParent<NPCThrowing>();
+        if (citizen != null 
+            && citizen.side == side) return;
 
         GamemodeManager.Instance.AddCEOHitCount();
         //_collisionObject.GetComponent<ShowText>()?.ShowTextObject(word);
