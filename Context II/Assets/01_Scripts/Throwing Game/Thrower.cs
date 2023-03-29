@@ -58,13 +58,13 @@ public abstract class Thrower : MonoBehaviour
         EventSystem.Unsubscribe(EventName.MENU_CLOSED, EnableSelf);
     }
 
-    public void EnableSelf(object _value = null)
+    public virtual void EnableSelf(object _value = null)
     {
         //if (FindObjectOfType<PropjeSelectMenu>()?.GetComponentInChildren<UnityEngine.UI.Button>() == null)
         isActive = true;
     }
 
-    public void DisableSelf(object _value = null)
+    public virtual void DisableSelf(object _value = null)
     {
         isActive = false;
     }

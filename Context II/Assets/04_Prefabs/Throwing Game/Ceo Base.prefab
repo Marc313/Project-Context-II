@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrower: {fileID: 2553892951702771419}
   movement: {fileID: 0}
+  logic: {fileID: 0}
 --- !u!1 &708271331682408386
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,8 +761,8 @@ MonoBehaviour:
     type: 3}
   startPos: {fileID: 7047215324102618232}
   destroyOnImpact: 1
-  anim: {fileID: 5696662132088549570}
   side: 0
+  anim: {fileID: 5696662132088549570}
   assignRandomTarget: 1
   target: {fileID: 0}
   maxOffsetAmount: 0.4
@@ -1228,7 +1229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &56943477107884525
 RectTransform:
   m_ObjectHideFlags: 0

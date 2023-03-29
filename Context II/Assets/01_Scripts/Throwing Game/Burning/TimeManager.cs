@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public class TimeManager : Singleton<TimeManager>
 {
+    public UnityEvent OnTimerEnds;
     public UnityEvent OnCutsceneEnd;
     public float TimePercent => currentTime / totalGameDurationSeconds;
     [SerializeField] private float totalGameDurationSeconds = 30;
@@ -25,6 +26,9 @@ public class TimeManager : Singleton<TimeManager>
             EventSystem.RaiseEvent(EventName.MENU_OPENED);
             Debug.Log("Game End");
             hasEnded = true;
+
+            OnTimerEnds?.Invoke();
+
             if (playCutscene)
             {
                 FindObjectOfType<EndCutscene>().Play(OnCutsceneEnd);

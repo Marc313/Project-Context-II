@@ -87,8 +87,7 @@ namespace ThrowingGame
             if (hitAnimations) PlayHitAnimation(_isPropFromPlayer);
 
             ShowTextObject(_word);
-            if (isPlayer) _isPropFromPlayer = true;   // Propje against player should also count more
-            convincedBar.ChangeConvinceValue(side, _isPropFromPlayer);
+            convincedBar.ChangeConvinceValue(side, _isPropFromPlayer, isPlayer);
 
         }
 

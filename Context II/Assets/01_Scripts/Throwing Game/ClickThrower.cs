@@ -7,7 +7,14 @@ public class ClickThrower : Thrower
     protected override bool isFromPlayer => true;
     [SerializeField] private bool onlyOneAllowed = true;
 
-    private Vector3 precalculatedDestination; 
+    private Trajectory trajectory;
+    private Vector3 precalculatedDestination;
+    private Vector3 trajectoryDestination;
+
+    private void Awake()
+    {
+        trajectory = GetComponent<Trajectory>();
+    }
 
     private void Update()
     {
@@ -15,8 +22,24 @@ public class ClickThrower : Thrower
         {
             precalculatedDestination = PrecalculateDirection();
             PlayThrowAnimation();
+            trajectory.Disable();
             //Activate();
         }
+
+        PrecalculateDirection();
+        trajectory?.SetEndPos(trajectoryDestination);
+    }
+
+    public override void EnableSelf(object _value = null)
+    {
+        base.EnableSelf(_value);
+        trajectory?.Enable();
+    }
+
+    public override void DisableSelf(object _value = null)
+    {
+        base.DisableSelf(_value);
+        trajectory?.Disable();
     }
 
     private Vector3 PrecalculateDirection()
@@ -36,6 +59,11 @@ public class ClickThrower : Thrower
         }
 
         destination.y = transform.position.y;
+        Ray toDestination = new Ray(trajectory.startPos.position, (destination - trajectory.startPos.position).normalized);
+        trajectoryDestination = toDestination.GetPoint(trajectory.length);
+
+        //trajectoryDestination = ray.GetPoint(trajectory.length);
+
 
         return destination;
     }

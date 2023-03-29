@@ -25,7 +25,7 @@ public class FollowPlayer : MonoBehaviour
     {
         FindPlayerController();
 
-        if (playerMovement == null || !playerMovement.isInteracting)
+        if (playerMovement != null || !playerMovement.isInteracting)
         {
             MoveToPlayer();
             if (rotationEnabled) RotateCameraAlongMouse();

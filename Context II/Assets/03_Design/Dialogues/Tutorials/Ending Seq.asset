@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speaker: The End
   dialogueLines:
-  - textBlock: No time for protests, time for talking
+  - textBlock: No time for protests, time for talking!
