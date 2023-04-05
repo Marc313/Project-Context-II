@@ -7,7 +7,7 @@ public class ClickThrower : Thrower
     protected override bool isFromPlayer => true;
     [SerializeField] private bool onlyOneAllowed = true;
 
-    private Trajectory trajectory;
+    [HideInInspector] public Trajectory trajectory;
     private Vector3 precalculatedDestination;
     private Vector3 trajectoryDestination;
 
@@ -22,7 +22,7 @@ public class ClickThrower : Thrower
         {
             precalculatedDestination = PrecalculateDirection();
             PlayThrowAnimation();
-            trajectory.Disable();
+            //trajectory.Disable();
             //Activate();
         }
 

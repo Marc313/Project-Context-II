@@ -9,6 +9,11 @@ public class ThrowEvent : MonoBehaviour
     public void ActivateAIThrower()
     {
         thrower?.Activate();
+
+        if (thrower != null && thrower is ClickThrower)
+        {
+            (thrower as ClickThrower).trajectory.Disable();
+        }
     }
 
     public void DisableMovement()
