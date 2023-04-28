@@ -7,6 +7,7 @@ public class PlayerLogic : MonoBehaviour
     public float interactRange;
     public Inventory inventory;
 
+    [SerializeField] private GameObject prop;
     private IInteractable closestInteractable;
     private bool isEnabled = true;
     private InteractIndicator[] indicators;
@@ -19,22 +20,36 @@ public class PlayerLogic : MonoBehaviour
 
     private void Start()
     {
-        foreach(InteractIndicator indicator in indicators)
+        isEnabled = false;
+        prop.SetActive(false);
+/*        foreach(InteractIndicator indicator in indicators)
         {
             indicator.gameObject.SetActive(false);
-        }
+        }*/
     }
 
     public void OnEnable()
     {
         EventSystem.Subscribe(EventName.MENU_OPENED, DisableSelf);
         EventSystem.Subscribe(EventName.MENU_CLOSED, EnableSelf);
+        EventSystem.Subscribe(EventName.PROPJE_CHOSEN, ShowProp);
     }
 
     public void OnDisable()
     {
         EventSystem.Unsubscribe(EventName.MENU_OPENED, DisableSelf);
         EventSystem.Unsubscribe(EventName.MENU_CLOSED, EnableSelf);
+        EventSystem.Unsubscribe(EventName.PROPJE_CHOSEN, ShowProp);
+    }
+
+    public void ShowProp(object _value = null)
+    {
+        prop.SetActive(true);
+    }
+
+    public void HideProp(object _value = null)
+    {
+        prop.SetActive(false);
     }
 
     private void EnableSelf(object _value)

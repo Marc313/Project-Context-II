@@ -1,8 +1,15 @@
+using MarcoHelpers;
 using UnityEngine;
 
+// Third Person player Movement
 public class PlayerMovement : Movement
 {
     public float currentMoveSpeed;
+    public bool isInteracting;
+
+    public bool verticalEnabled = true;
+    public bool horizontalEnabled = true;
+    public bool rotationEnabled = true;
 
     private Rigidbody rb;
     private FollowPlayer playerCamera;
@@ -10,11 +17,9 @@ public class PlayerMovement : Movement
     private Vector3 moveDirection;
     private Quaternion targetRotation;
 
-    public bool isInteracting;
 
     private void Awake()
     {
-        playerCamera = FindObjectOfType<FollowPlayer>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -23,14 +28,41 @@ public class PlayerMovement : Movement
         if (!isInteracting)
         {
             HandleMoveInput();
-            UpdateTargetRotation();
+            if (rotationEnabled) UpdateTargetRotation();
         }
+    }
+
+    public void InsertCamera(FollowPlayer _playerCamera)
+    {
+        playerCamera= _playerCamera;
+    }
+
+    public void OnEnable()
+    {
+        EventSystem.Subscribe(EventName.MENU_OPENED, DisableSelf);
+        EventSystem.Subscribe(EventName.MENU_CLOSED, EnableSelf);
+    }
+
+    public void OnDisable()
+    {
+        EventSystem.Unsubscribe(EventName.MENU_OPENED, DisableSelf);
+        EventSystem.Unsubscribe(EventName.MENU_CLOSED, EnableSelf);
+    }
+
+    private void EnableSelf(object _value)
+    {
+        isInteracting = false;
+    }
+
+    private void DisableSelf(object _value)
+    {
+        isInteracting = true;
     }
 
     private void HandleMoveInput()
     {
-        float vertInput = Input.GetAxisRaw("Vertical");
-        float horInput = Input.GetAxisRaw("Horizontal");
+        float vertInput = verticalEnabled ? Input.GetAxisRaw("Vertical") : 0;
+        float horInput = horizontalEnabled ? Input.GetAxisRaw("Horizontal") : 0;
 
         if (vertInput != 0 || horInput != 0)
         {

@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     public GameObject ScaleMenu;
     public InventorySlot[] inventorySlots;
     public Slider balanceBar;
+    private float actualBalanceBarValue;
 
     [Header("Articles")]
     public GameObject ArticleMenu;
@@ -67,15 +68,16 @@ public class UIManager : MonoBehaviour
         CursorSetup();
 
         SwitchToSequence();
+        Invoke(nameof(Test), 0.05f);
         Invoke(nameof(Test), 0.1f);
-        Invoke(nameof(Test), 0.2f);
+
+        actualBalanceBarValue = balanceBar.value;
     }
 
     public void Test ()
     {
         ToggleScaleMenu();
         FillInventorySlots();
-
     }
 
     private void OnEnable()
@@ -108,6 +110,11 @@ public class UIManager : MonoBehaviour
         {
             ToggleScaleMenu();
             FillInventorySlots();
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SwitchToArticleMenu();
         }
 
         if (IsMouseOnUI())
@@ -144,13 +151,11 @@ public class UIManager : MonoBehaviour
         dialogueText = dialogueChoiceText;
     }
 
-    // Leave to UI Manager
     public void ShowDialogueCanvas()
     {
         dialogueCanvas.gameObject.SetActive(true);
     }
 
-    // Leave to UI Manager
     public void HideDialogueCanvas()
     {
         dialogueCanvas.gameObject.SetActive(false);
@@ -174,7 +179,8 @@ public class UIManager : MonoBehaviour
     public void AddToBalanceValue(float _value, Token.Side _side)
     {
         int multiplier = _side == Token.Side.Citizen ? -1 : 1;
-        balanceBar.value += _value * multiplier;
+        actualBalanceBarValue += _value * multiplier;
+        balanceBar.value = Mathf.Clamp01(actualBalanceBarValue);
     }
 
     private void ShowItemObtainScreen(object _item)
@@ -247,7 +253,7 @@ public class UIManager : MonoBehaviour
         articleContent.text = article.content;
     }
 
-    private void SwitchToArticleMenu(object _value)
+    private void SwitchToArticleMenu(object _value = null)
     {
         if (ArticleMenu == null) return;
 
